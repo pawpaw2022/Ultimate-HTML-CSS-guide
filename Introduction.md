@@ -6,11 +6,15 @@
 
 ## Table of Content
 
-- [Introduction] (#Introduction)
+- [Introduction](#introduction)
+  - [HTML basics](#html-basics)
+  - [HTML tags](#html-tags)
+  - [CSS basics](#css-basics)
+  - [Development tools](#development-tools)
 
 ---
 
-### _Introduction_
+### Introduction
 
 Today is an exciting day (Nov. 28 2021) as I officially launched my Front End learning Journey.
 
@@ -33,7 +37,7 @@ With all the passions, let's dive right in ! ᕙ(`▿´)ᕗ
 
 ---
 
-### _HTML basics_
+### HTML basics
 
 To start with, first thing to do is to pick your fav text editor. I will be using VS code throughout the entire journey.
 
@@ -64,7 +68,7 @@ Note:
 
 ---
 
-### _HTML Tags_
+### HTML tags
 
 In the simple web page, just like a human, it must contain _head_ and _body_.
 
@@ -95,7 +99,7 @@ and the _body_ with `<body> ... </body>`
 
 ---
 
-### _CSS basics_
+### CSS basics
 
 After we created the "backbone" of the web, let's arrange these elements so they look prettier.
 
@@ -135,7 +139,7 @@ Again, a few things to note:
 
 ---
 
-### _Development tools_
+### Development tools
 
 If you encounter some issues with your HTML or CSS that your web page doesn't display the expected tag/style. It is difficult to _Debug_ your code since HTML & CSS doesn't mark up your bugs like other programming language. (╥﹏╥)
 
