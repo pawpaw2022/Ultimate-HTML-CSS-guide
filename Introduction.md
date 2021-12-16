@@ -4,6 +4,12 @@
 
 ---
 
+## Table of Content
+
+- [Introduction] (#Introduction)
+
+---
+
 ### _Introduction_
 
 Today is an exciting day (Nov. 28 2021) as I officially launched my Front End learning Journey.
@@ -15,7 +21,8 @@ The journey path will be :
 1. HTML & CSS
 2. JavaScript
 3. React
-4. ... other increble awesomeness ...
+4. Git
+5. ... other increble awesomeness ...
 
 With all the passions, let's dive right in ! ᕙ(`▿´)ᕗ
 
