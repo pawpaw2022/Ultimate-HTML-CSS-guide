@@ -874,6 +874,51 @@ Example:
 
 ---
 
+#### Summary
+
+- The `<head>` section is used to provide information about a webpage.
+- The `<p>` element is used to represent a paragraph. A paragraph can be one or many
+  lines of text.
+- The `<em>` element is used to define emphasized text. By default, emphasized text is
+  displayed in _italic_.
+- The `<strong>` element is used to represent important content. Browsers, by default,
+  render strong content in **bold**.
+- The`<i>`and `<b>` elements are considered deprecated because HTML should not be
+  used for styling. That’s the role of CSS.
+- Headings are represented using `<h1>`, `<h2>`, `<h3>`, `<h4>`, `<h5>`, `<h6>`. Every
+  web page should have one and only one `<h1>` element. Headings should have a natural
+  hierarchy and should not be skipped.
+- Entities are used to display special characters such as angle brackets, copyright symbol,
+  etc. The most important entities are: `&nbsp;` (non-breaking space), `&lt;` (less than
+  sign), `&gt;` (greater than sign) and `&copy;` (copyright symbol).
+- The `<a>` (anchor) element, with its href attribute, is used to create a hyperlink to web
+  pages, locations in the same page, files and email addresses.
+- A relative URL specifies the target resource relative to the current resource. An absolute
+  URL specifies the location of a resource irrespective of the current resource. It can start
+  with a / to indicate the root of the website or a protocol (eg http://) to represent a
+  resource on a different website.
+- The `<img>` element is used to display an image. It’s a common best practice to set the
+  alt (alternative text) attribute. This helps visually impaired people understand the page
+  content. Also, if the image cannot be loaded, the alternative text is displayed.
+- The `<video>` and `<audio>` elements are used to display video and audio. These
+  elements have boolean attributes such as controls, autoplay and loop.
+- The `<ul>` element is used to represent a list where the order of items doesn’t matter. The
+  `<ol>` element is used to represent an ordered list of items. The `<dl>` (description list)
+  element is used to implement a glossary or to display metadata.
+- The `<table>` element should only be used to represent tabular data. A table can have
+  zero or more `<tr>` (table row) elements. Each `<tr>` element can have zero or more cells.
+  Cells can be data cells (`<td>`) or header cells (`<th>`).
+- The `<div>` and` <span>` elements are generic containers used for styling purposes. Divs
+  are block-level elements, spans are inline elements. A block-level element starts on a new
+  line and takes up the entire available horizontal space.
+- Semantic elements help us write markup that is more meaningful and descriptive to
+  search engines, screen readers and other software. So, use `<div>` and `<span>` elements
+  when no other semantic element is appropriate.
+- The semantic elements in HTML5 are: `<header>`, `<footer>`, `<nav>`, `<main>`,
+  `<aside>`, `<article>`, `<section>`, `<figure>`, `<time>` and `<mark>`.
+
+---
+
 ### CSS basics
 
 After we created the "backbone" of the web, let's arrange these elements so they look prettier.
