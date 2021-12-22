@@ -26,6 +26,14 @@ Front End Journey 101 Memos
 
     - [Lists](#lists)
 
+    - [Tables](#tables)
+
+    - [Containers](#containers)
+
+    - [Semantic Elements](#semantic-elements)
+
+    - [Basic structure of a web page](#basic-structure-of-a-web-page)
+
   - [CSS basics](#css-basics)
   - [Development tools](#development-tools)
 
@@ -529,13 +537,340 @@ Output:
 
 #### Tables
 
+HTML tables allow web developers to arrange data into rows and columns.
+
+To create a simple table, we need `<table>`, `<tr>`, `<td>`. (or simply `table>tr>td*2`)
+
+```html
+<table>
+  <tr>
+    <td>Marketing</td>
+    <td>$200</td>
+  </tr>
+
+  <tr>
+    <td>Accounting</td>
+    <td>$100</td>
+  </tr>
+</table>
+```
+
+You can add headers on each columns by replacing `<th>` with `<tr>`
+
+```html
+<table>
+  <tr>
+    <th>Category</th>
+    <th>Amount</th>
+  </tr>
+</table>
+```
+
+Adding footer by using `<tfoot>`:
+
+```html
+<tfoot>
+  <tr>
+    <th>Total</th>
+    <th>$300</th>
+  </tr>
+</tfoot>
+```
+
+Style your table so it looks prettier:
+
+```html
+<style>
+  /* Apply styling on all three tags */
+  table,
+  td,
+  th {
+    /* Thin solid gray border */
+    border: 1px solid gray;
+    /* collapse the line in between each cell */
+    border-collapse: collapse;
+    /* make element far away from the border */
+    padding: 5px;
+  }
+
+  tfoot {
+    text-align: left;
+  }
+</style>
+```
+
+Note: In order to make searching engine quickly locate your tag, you must use `<thead>`, `<tbody>` and `<tfoot>` and organize your code:
+
+```html
+<table>
+  <!-- thead section -->
+  <thead>
+    <tr>
+      <!-- merge 2 rows -->
+      <th colspan="2">Expenses</th>
+    </tr>
+    <tr>
+      <th>Category</th>
+      <th>Amount</th>
+    </tr>
+  </thead>
+
+  <!-- tbody section -->
+  <tbody>
+    <tr>
+      <td>Marketing</td>
+      <td>$200</td>
+    </tr>
+
+    <tr>
+      <td>Accounting</td>
+      <td>$100</td>
+    </tr>
+  </tbody>
+
+  <!-- tfoot section -->
+  <tfoot>
+    <tr>
+      <th>Total</th>
+      <th>$300</th>
+    </tr>
+  </tfoot>
+</table>
+```
+
+Output:
+
+<style>
+  table,
+  td,
+  th {
+    border: 1px solid gray;
+    border-collapse: collapse;
+    padding: 5px;
+  }
+
+  tfoot {
+    text-align: left;
+  }
+</style>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="2">Expenses</th>
+    </tr>
+    <tr>
+      <th>Category</th>
+      <th>Amount</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>Marketing</td>
+      <td>$200</td>
+    </tr>
+
+  <tr>
+    <td>Accounting</td>
+    <td>$100</td>
+  </tr>
+  </tbody>
+
+  <tfoot>
+    <tr>
+      <th>Total</th>
+      <th>$300</th>
+    </tr>
+  </tfoot>
+</table>
+
 ---
 
 #### Containers
 
+The container class is the perfect class to use for all HTML container elements like:
+
+`<div>`, `<article>`, `<section>`, `<header>`, `<footer>`, `<form>`, and more.
+
+##### Block-level Elements
+
+A block-level element always starts on a new line.
+
+A block level element has a top and a bottom margin, whereas an inline element does not.
+
+The `<div>` element is a block-level element.
+
+Ex:
+
+```html
+<div>
+  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+
+  <a href="#">Link</a>
+</div>
+```
+
+If we style `<div>`, the entire `<div>` block will be affected, which is not good sometimes.
+
+```html
+<style>
+  div {
+    background-color: yellow;
+  }
+</style>
+```
+
+One way of addressing this issue is to set different class for `<div>`.
+
+```html
+<style>
+  /* omit div to generalize all container that has product class will be affected. */
+  .product {
+    background-color: yellow;
+  }
+</style>
+
+<!-- define a product class to this div container -->
+<div class="product">
+  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+
+  <a href="#">Link</a>
+</div>
+```
+
+##### In-line Elements
+
+An inline element does not start on a new line.
+
+An inline element only takes up as much width as necessary.
+
+If we want to highlight some words in the sentence without change to a new line, we can use in-line element, `<span>`.
+
+```html
+
+<style>
+  .highlight {
+    background-color: yellow;
+  }
+</style>
+
+<p>
+  <div>
+    <span class="highlight">Lorem</span> ipsum dolor, sit amet consectetur
+    adipisicing elit.
+  </div>
+</p>
+```
+
 ---
 
 #### Semantic Elements
+
+Semantic Elements make our html element more readable and more meaningful for the search engine.
+
+Generic Elements: `<div>`, `<span>`
+
+Semantic Elements: `<article>`, `<figure>`, `<mark>`, `<time>` etc.
+
+##### Article
+
+we use `<article>` to wrap up any self-contain content like Forum post, comments, Reviews
+
+```html
+<article class="article">
+  <h1>Heading1</h1>
+  <p>
+    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reprehenderit nemo
+  </p>
+</article>
+```
+
+##### Figure
+
+Use a `<figure>` element to mark up a photo in a document, and a `<figcaption>` element to define a caption for the photo:
+
+```html
+<figure>
+  <img src="" alt="" />
+
+  <!-- figure caption under the image -->
+  <figcaption>My Coffee this morning</figcaption>
+</figure>
+```
+
+##### Mark
+
+Use a `<make>` to replace `<span class=highlight>` to automatically highlight text in yellow.
+
+```html
+<!-- 'Lorem' is highlighted in yellow -->
+<p><mark>Lorem</mark> ipsum, dolor sit amet consectetur adipisicing elit.</p>
+```
+
+---
+
+#### Basic structure of a web page
+
+Now that we know some semantic elements as well as some genertic elements, there is a general layout for you to structure every web page.
+
+==Note: Structure may vary in different scenarios==
+
+To begin with, each web page must have `header`, `main`, `footer` sections. It might also have `aside` section to display some content aside from the main content.
+
+For each section, it will also contain other sections or elements that we learned before.
+
+Example:
+
+```html
+<body>
+  <!-- Header Section -->
+  <header>
+    <!-- Nav Bar -->
+    <nav>
+      <!-- Unordered List -->
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </nav>
+  </header>
+  <!-- Main Section -->
+  <main>
+    <!-- Several Sections -->
+    <section>
+      <!-- Header inside each section -->
+      <h2>Products</h2>
+      <!-- Several Article inside a section -->
+      <article></article>
+      <article></article>
+      <article></article>
+    </section>
+    <section>
+      <h2>Testimonial</h2>
+      <article>
+        <!-- Several Sections inside an article -->
+        <section></section>
+        <section></section>
+      </article>
+      <article></article>
+    </section>
+  </main>
+  <!-- Aside Section -->
+  <aside></aside>
+  <!-- Footer Section -->
+  <footer>
+    <nav>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </nav>
+  </footer>
+</body>
+```
 
 ---
 
@@ -622,3 +957,15 @@ Now the code should look like this:
   </body>
 </html>
 ```
+
+---
+
+### Keyboard shortcut for Mac
+
+`shift + option + down` to duplicate block of code
+
+`shift + up/down` to select multiple lines of code
+
+`option + up/down` to move code up/down
+
+`cmd + d` to show 2 cursors to replace a name with same variable
