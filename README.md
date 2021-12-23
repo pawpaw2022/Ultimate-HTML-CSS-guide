@@ -36,6 +36,15 @@ Front End Journey 101 Memos
     - [Summary](#summary)
 
   - [CSS basics](#css-basics)
+
+    - [Providing CSS](#providing-css)
+
+    - [Normalizing CSS](#normalizing-css)
+
+    - [Basic Selectors](#basic-selectors)
+
+    - [Relational selectors](#relational-selectors)
+
   - [Development tools](#development-tools)
 
 ---
@@ -1155,7 +1164,7 @@ The descendant selector matches all elements that are descendants of a specified
 The following example selects all `<p>` elements inside `#products` id:
 
 ```css
-/* CSS */
+/* Selecting all <p> in products */
 #products p {
   background-color: yellow;
 }
@@ -1170,7 +1179,7 @@ The child selector selects all elements that are the children of a specified ele
 The following example selects all `<p>` elements that are children of a `#products` id:
 
 ```css
-/* CSS */
+/* Selecting all <p> that are the direct children of product */
 #products > p {
   background-color: yellow;
 }
@@ -1187,7 +1196,7 @@ Sibling elements must have the same parent element, and "adjacent" means "immedi
 The following example selects the first `<p>` element that are placed immediately after `#products` id:
 
 ```css
-/* CSS */
+/* Selecting only the first <p> coming right after product  */
 #products + p {
   background-color: yellow;
 }
@@ -1202,7 +1211,7 @@ The general sibling selector selects all elements that are next siblings of a sp
 The following example selects all `<p>` elements that are next siblings of `#products` id:
 
 ```css
-/* CSS */
+/* Selecting all <p> after product */
 #products ~ p {
   background-color: yellow;
 }
