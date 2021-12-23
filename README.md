@@ -2,23 +2,6 @@
 
 Front End Journey 101 Memos
 
-<style>
-img{
-  width:200px;
-}
-
-</style>
-
-<img src="https://miro.medium.com/max/792/1*lJ32Bl-lHWmNMUSiSq17gQ.png" alt="HTML & CSS Icon"/>
-
-<img style="width:130px;" src="https://www.ocpsoft.org/wp-content/uploads/2013/01/javascript_logo_unofficial.png" alt="JS icon"/>
-
-<img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png" alt="React icon"/>
-
-<img style="width:120px;" src="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png" alt="Git icon"/>
-
----
-
 <img style="width:400px;" src="https://camo.githubusercontent.com/cae12fddd9d6982901d82580bdf321d81fb299141098ca1c2d4891870827bf17/68747470733a2f2f6d69726f2e6d656469756d2e636f6d2f6d61782f313336302f302a37513379765349765f7430696f4a2d5a2e676966" alt="Programming is my life~"/>
 
 ---
