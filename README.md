@@ -1227,7 +1227,7 @@ Note: Relational selectors can be fragile if the order of the tag is mutated.
 
 ---
 
-### Pseudo-class Selectors
+### Pseudo-class selectors
 
 A pseudo-class is used to define a special state of an element.
 
@@ -1362,7 +1362,75 @@ a:focus {
 
 ---
 
-####
+#### Pseudo-element selectors
+
+A CSS pseudo-element is used to style specified parts of an element.
+
+For example, it can be used to:
+
+- Style the first letter, or line, of an element
+- Insert content before, or after, the content of an element
+
+Ex: Say you want to bold the first letter of the paragraph
+
+Without using Pseudo-element selectors, you must make a `span` `class` and style that class:
+
+```html
+<!-- Without using Pseudo-element selectors -->
+<style>
+  /* Style specific class */
+  .first-letter {
+    font-size: 140%;
+    font-weight: bold;
+  }
+</style>
+
+<p>
+  <span class="first-letter">L</span>orem ipsum dolor sit, amet consectetur
+  adipisicing elit. Non quos est exercitationem tempora, possimus, iste a
+  tempore odit corporis ipsa doloremque fuga veniam repellat esse provident sit
+  dicta, dolorem dignissimos.
+</p>
+```
+
+Thanks to Pseudo-element selectors, the previous step is unnecessary.
+
+Instead, you should use `::` to indicate a Pseudo-element:
+
+```css
+/* style first letter of each <p> */
+p::first-letter {
+  font-size: 140%;
+  font-weight: bold;
+}
+
+/* style first line of each <p> */
+p::first-line{
+    font-weight: bold;
+}
+
+/* Style the background color of cursor selection */
+::selection{
+    background-color: pink;
+}
+
+/* insert a Pseudo-element before <p> */
+p::before{
+    content: '...';
+    /* set it to block element that takes the entire block */
+    display: block;
+}
+```
+
+
+
+---
+#### Pseudo-elements VS. Pseudo-classes
+
+__Pseudo-elements__ is used to style part of an element, such as `first-letter`, `first-line`. 
+
+__Pseudo-classes__ is used to style elements in a particular state, such as `Hovered anchor`. 
+
 
 ---
 
