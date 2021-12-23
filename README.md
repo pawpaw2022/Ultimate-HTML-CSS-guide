@@ -2,6 +2,25 @@
 
 Front End Journey 101 Memos
 
+<style>
+img{
+  width:200px;
+}
+
+</style>
+
+<img src="https://miro.medium.com/max/792/1*lJ32Bl-lHWmNMUSiSq17gQ.png" alt="HTML & CSS Icon"/>
+
+<img style="width:130px;" src="https://www.ocpsoft.org/wp-content/uploads/2013/01/javascript_logo_unofficial.png" alt="JS icon"/>
+
+<img  src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png" alt="React icon"/>
+
+<img style="width:120px;" src="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png" alt="Git icon"/>
+
+---
+
+<img style="width:400px;" src="https://camo.githubusercontent.com/cae12fddd9d6982901d82580bdf321d81fb299141098ca1c2d4891870827bf17/68747470733a2f2f6d69726f2e6d656469756d2e636f6d2f6d61782f313336302f302a37513379765349765f7430696f4a2d5a2e676966" alt="Programming is my life~"/>
+
 ---
 
 ## Table of Content
@@ -44,6 +63,8 @@ Front End Journey 101 Memos
     - [Basic Selectors](#basic-selectors)
 
     - [Relational selectors](#relational-selectors)
+
+    - [Pseudo-class Selectors](#pseudo-class-selectors)
 
   - [Development tools](#development-tools)
 
@@ -1225,7 +1246,140 @@ Note: Relational selectors can be fragile if the order of the tag is mutated.
 
 ### Pseudo-class Selectors
 
-...
+A pseudo-class is used to define a special state of an element.
+
+For example:
+
+Let's say we want to style the first `<p>` in the article only.
+
+```html
+<!-- 2 paragraphs in an article section -->
+<article>
+  <p class="first">Lorem ipsum dolor sit amet.</p>
+
+  <p>Lorem ipsum dolor sit amet.</p>
+</article>
+```
+
+Without Pseudo-class, we can define a class of the first `<p>`:
+
+```css
+/* Without using Pseudo-class Selectors */
+/* You can specify first <p> by defining a class */
+.first {
+  font-size: 140%;
+  font-style: italic;
+}
+```
+
+By using Pseudo-class, we use `:` to specify the relationship:
+
+```css
+/* first-child inside article class */
+article :first-child {
+  font-size: 140%;
+  font-style: italic;
+}
+```
+
+However, this type of pseudo class selector is fragile. If we change the first element of article, the rule will break.
+
+To address this issue, we can use `first-of-type` selector
+
+```css
+/* the first occurance of any type inside the article */
+article :first-of-type {
+  font-size: 140%;
+  font-style: italic;
+}
+```
+
+If we only want to style the first occurance of `<p>`, we can be more specific:
+
+```css
+/* the first occurance of <p> inside the article */
+article p:first-of-type {
+  font-size: 140%;
+  font-style: italic;
+}
+```
+
+Similarily, we can also apply the rule on `last-of-type`:
+
+```css
+/* the last occurance of <p> inside the article */
+article p:last-of-type {
+  font-weight: bold;
+}
+
+/* the last child of <p> inside the article */
+article p:last-child {
+  font-weight: bold;
+}
+```
+
+##### Pseudo-class selector on unordered lists:
+
+To select specify rows of an unordered lists:
+
+```html
+<!-- An unordered list containing 5 items -->
+<ul>
+  <li>Item 1</li>
+  <li>Item 2</li>
+  <li>Item 3</li>
+  <li>Item 4</li>
+  <li>Item 5</li>
+</ul>
+```
+
+```css
+/* Select odd rows */
+ul li:nth-child(odd) {
+  color: deeppink;
+}
+
+/* Select even rows */
+ul li:nth-child(even) {
+  color: deeppink;
+}
+
+/* Select 3 multiple rows */
+ul li:nth-child(3n) {
+  color: deeppink;
+}
+```
+
+##### Pseudo-class selector on hyperlinks:
+
+To style visited and unvisited links differently:
+
+```css
+/* visited link */
+a:visited {
+  color: darkcyan;
+}
+
+/* unvisited link */
+a:link {
+  color: purple;
+}
+```
+
+To style links that are hovered by mouse or `tab` key:
+
+```css
+a:hover,
+a:focus {
+  color: deeppink;
+}
+```
+
+[CSS Pseudo-classes](https://www.w3schools.com/css/css_pseudo_classes.asp)
+
+---
+
+####
 
 ---
 
@@ -1286,14 +1440,14 @@ Now the code should look like this:
 `cmd + d` to show 2 cursors to replace a name with 2 selected variable
 
 Zen Coding:
-`section>ul>li*3` + `tab` =
+`section>ul>li*3{Item $}` + `tab` =
 
 ```html
 <section>
   <ul>
-    <li></li>
-    <li></li>
-    <li></li>
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
   </ul>
 </section>
 ```
