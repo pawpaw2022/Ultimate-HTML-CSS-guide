@@ -33,6 +33,7 @@ Front End Journey 101 Memos
     - [Semantic Elements](#semantic-elements)
 
     - [Basic structure of a web page](#basic-structure-of-a-web-page)
+    - [Summary](#summary)
 
   - [CSS basics](#css-basics)
   - [Development tools](#development-tools)
@@ -268,7 +269,7 @@ In the link address section, you can define your address in multiple way
 
 ##### _Relative URL_
 
-Relative URL is a simply way to link to a different html page or element.
+A relative URL specifies the target resource relative to the current resource.
 
 Under the same folder:
 
@@ -296,7 +297,7 @@ Under the root folder (3 level) :
 
 ##### _Absolute URL_
 
-Relative URL sometimes is messy especially when we have multiple levels of folder, we can use absolute URL to solve this issue by starting with a `/` before the name.
+An absolute URL specifies the location of a resource irrespective of the current resource. It can start with a `/` to indicate the root of the website or a protocol (eg `http://`) to represent a resource on a different website.
 
 ```html
 <!-- Relative URL -->
@@ -808,6 +809,18 @@ Use a `<make>` to replace `<span class=highlight>` to automatically highlight te
 <p><mark>Lorem</mark> ipsum, dolor sit amet consectetur adipisicing elit.</p>
 ```
 
+##### Time
+
+Use a `<Time>` to specify time to help search engines quickly extract time from the text.
+
+```html
+<p>
+  <!-- datetime="YYYY-MM-DD 24:HR" -->
+  Published
+  <time datetime="2021-01-01 17:00">January 1 2022 05:00pm</time>
+</p>
+```
+
 ---
 
 #### Basic structure of a web page
@@ -959,6 +972,254 @@ Again, a few things to note:
 
 ---
 
+#### Providing CSS
+
+CSS can be provided through different ways:
+
+##### Embedded stylesheets
+
+Adding `<style>` in `<head>` section
+
+```html
+<head>
+  <style>
+    p {
+      color: blue;
+    }
+  </style>
+</head>
+```
+
+##### External stylesheets
+
+Creating an external `.css` file and linking it to html
+
+```css
+/* CSS file */
+p {
+  color: grey;
+}
+```
+
+```html
+<!-- HTML file -->
+<head>
+  <link rel="stylesheet" href="style.css" />
+</head>
+```
+
+##### Inline styles
+
+Styling inside an independent tag
+
+```html
+<body>
+  <p style="color: blue; font-weight: bold">Lorem ipsum dolor sit amet.</p>
+</body>
+```
+
+==Note: This is NOT recommanded since it difficult to modify later==
+
+Instead, we can use `id` or `class` to specify a tag:
+
+```html
+<head>
+  <style>
+    /* styling ID */
+    #first {
+      color: palegreen;
+      font-weight: bold;
+    }
+    /* styling Class */
+    .second {
+      color: wheat;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <p id="first">Lorem ipsum dolor sit amet.</p>
+  <p class="second">Lorem ipsum dolor sit amet.</p>
+
+  <p>Lorem ipsum dolor sit amet.</p>
+</body>
+```
+
+==Note: `id` **MUST** be unique, whereas `class` doesn't necessarily.==
+
+---
+
+#### Normalizing CSS
+
+Different browsers might render CSS differently. Some browsers version sometimes DO NOT support load the CSS feature.
+
+Hence, we need use [Normailize.css](https://necolas.github.io/normalize.css/)
+
+Download `normailze.css` and link to your html file so any browser can render your CSS features.
+
+---
+
+#### Basic Selectors
+
+When we style different tags, we can catogorize them by `class` and `id`, which is commonly used in CSS.
+
+==FYI: `#ID{..}` to style id, `.CLASS{..}` to style class.==
+
+You can also choose to use "Wildcard" to select tags.
+
+Ex:
+
+```html
+<!-- Html -->
+<a href="https://www.google.com" target="_blank">Google</a>
+```
+
+There are multiple ways to specify this hyperlink using wildcard:
+
+```css
+/* CSS */
+
+/* If the anchor has "target" attribute */
+a[target] {
+  color: orange;
+}
+
+/* If the anchor's "target" attribute is set to "_blank" */
+a[target="_blank"] {
+  color: orange;
+}
+
+/* If "href" is "https://www.google.com"  (This is Fragile!) */
+a[href="https://www.google.com"]
+{
+  color: orange;
+}
+
+/* If "href" contains "google" */
+a[href*="google"] {
+  /* '*=' -> contain */
+  color: orange;
+}
+
+/* If "href" starts with "https" */
+a[href^="https"] {
+  /* '^=' -> start with */
+  color: orange;
+}
+
+/* If "href" ends with ".com" */
+a[href$=".com"] {
+  /* '$=' -> end with */
+  color: orange;
+}
+```
+
+---
+
+#### Relational selectors
+
+A CSS selector can contain more than one simple selector. Between the simple selectors, we can include a combinator.
+
+There are four different combinators in CSS:
+
+- descendant selector (space)
+- child selector (>)
+- adjacent sibling selector (+)
+- general sibling selector (~)
+
+Ex: say we have a html like this:
+
+```html
+<section id="products">
+  <!-- p1 -->
+  <p>Lorem ipsum dolor sit amet.</p>
+
+  <article>
+    <!-- p2 -->
+    <p>Lorem ipsum dolor sit amet.</p>
+  </article>
+</section>
+<!-- p3 -->
+<p>Lorem ipsum dolor sit amet.</p>
+<!-- p4 -->
+<p>Lorem ipsum dolor sit amet.</p>
+```
+
+_Determine which `<p>` will be affected by CSS after each selector._
+
+##### descendant selector (space)
+
+The descendant selector matches all elements that are descendants of a specified element.
+
+The following example selects all `<p>` elements inside `#products` id:
+
+```css
+/* CSS */
+#products p {
+  background-color: yellow;
+}
+```
+
+==p1 & p2 will be affected==
+
+##### Child Selector (>)
+
+The child selector selects all elements that are the children of a specified element.
+
+The following example selects all `<p>` elements that are children of a `#products` id:
+
+```css
+/* CSS */
+#products > p {
+  background-color: yellow;
+}
+```
+
+==Only p1 will be affected==
+
+##### Adjacent Sibling Selector (+)
+
+The adjacent sibling selector is used to select an element that is directly after another specific element.
+
+Sibling elements must have the same parent element, and "adjacent" means "immediately following".
+
+The following example selects the first `<p>` element that are placed immediately after `#products` id:
+
+```css
+/* CSS */
+#products + p {
+  background-color: yellow;
+}
+```
+
+==Only p3 will be affected==
+
+##### General Sibling Selector (~)
+
+The general sibling selector selects all elements that are next siblings of a specified element.
+
+The following example selects all `<p>` elements that are next siblings of `#products` id:
+
+```css
+/* CSS */
+#products ~ p {
+  background-color: yellow;
+}
+```
+
+==p3 & p4 will be affected==
+
+Note: Relational selectors can be fragile if the order of the tag is mutated.
+
+---
+
+### Pseudo-class Selectors
+
+...
+
+---
+
 ### Development tools
 
 If you encounter some issues with your HTML or CSS that your web page doesn't display the expected tag/style. It is difficult to _Debug_ your code since HTML & CSS doesn't mark up your bugs like other programming language.
@@ -1011,6 +1272,23 @@ Now the code should look like this:
 
 `shift + up/down` to select multiple lines of code
 
-`option + up/down` to move code up/down
+`option + up/down` to move selected code up/down
 
-`cmd + d` to show 2 cursors to replace a name with same variable
+`cmd + d` to show 2 cursors to replace a name with 2 selected variable
+
+Zen Coding:
+`section>ul>li*3` + `tab` =
+
+```html
+<section>
+  <ul>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+</section>
+```
+
+`section#products` + `tab` = `<section id="products"></section>`
+
+`section.products` + `tab` = `<section class="products"></section>`
