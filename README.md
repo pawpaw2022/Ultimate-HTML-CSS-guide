@@ -35,7 +35,8 @@ Front End Journey 101 Memos
     - [Semantic Elements](#semantic-elements)
 
     - [Basic structure of a web page](#basic-structure-of-a-web-page)
-    - [Summary](#summary)
+
+    - [Summary](#1summary)
 
   - [CSS basics](#css-basics)
 
@@ -50,6 +51,18 @@ Front End Journey 101 Memos
     - [Pseudo-class Selectors](#pseudo-class-selectors)
 
     - [Pseudo-element selectors](#pseudo-element-selectors)
+
+    - [Inheritance](#inheritance)
+
+    - [Color](#color)
+
+    - [Gradients](#gradients)
+
+    - [Borders](#borders)
+
+    - [Shadows](#shadows)
+
+    - [Summary](#2summary)
 
   - [Development tools](#development-tools)
 
@@ -902,7 +915,7 @@ Example:
 
 ---
 
-#### Summary
+<h4 id="1summary">Summary</h4>
 
 - The `<head>` section is used to provide information about a webpage.
 - The `<p>` element is used to represent a paragraph. A paragraph can be one or many
@@ -1519,7 +1532,7 @@ But the border will not be inherited since it is a non-inherited property:
 p {
   /* color will be inherited to <strong> */
   color: dodgerblue;
-  
+
   /* border will NOT be inherited to <strong> */
   border: 1px solid black;
 }
@@ -1536,6 +1549,231 @@ strong {
   border: inherit;
 }
 ```
+
+---
+
+#### Color
+
+Finally comes to my favourite part - Color !!! :heart_eyes:
+
+In CSS, colors can be represented in several ways:
+
+- **Named colors** (e.g `yellow`, `blue`)
+- **RGB** (e.g `60, 143, 82`)
+- **HSL** (e.g `136, 58%, 56%`) _- (Hue-Saturation-Lightness)_
+- **Hexadecimal** (e.g. `#3c8f52`)
+
+Ex:
+
+```css
+/* Define a box filled in with color */
+
+/* By Named colors */
+.box {
+  width: 200px;
+  height: 200px;
+  background-color: yellow;
+}
+
+/* By RGB (range from 0~255) */
+.box {
+  width: 200px;
+  height: 200px;
+  background-color: rgb(75, 176, 44);
+}
+
+/* By RGBA ('a' short for Alpha, meaning transparency between 0~1) */
+.box {
+  width: 200px;
+  height: 200px;
+  background-color: rgba(75, 176, 44, 0.5);
+}
+
+/* By Hexadecimal */
+.box {
+  width: 200px;
+  height: 200px;
+  background-color: #4bb02c;
+}
+
+/* By hsl */
+.box {
+  width: 200px;
+  height: 200px;
+  background-color: hsl(106, 60%, 43%);
+}
+
+/* By hsla ('a' short for Alpha, meaning transparency between 0~1)*/
+.box {
+  width: 200px;
+  height: 200px;
+  background-color: hsla(106, 100%, 43%, 0.5);
+}
+```
+
+Note: By convention, `hexadecimal` is the most popular way to use, but it doesn't support `Alpha` channel. If you prefer to adjust the color shadow and brightness like me, then `hsl` is a better choice.
+
+> Tips: You can always google [Color Picker](https://g.co/kgs/mdQdSF) to pick your ideal color.
+
+---
+
+#### Gradients
+
+CSS gradients let you display smooth transitions between two or more specified colors.
+
+CSS defines three types of gradients:
+
+- Linear Gradients (goes down/up/left/right/diagonally)
+- Radial Gradients (defined by their center)
+- Conic Gradients (rotated around a center point)
+
+Syntax:
+
+`background-image: linear-gradient(direction, color-stop1, color-stop2, ...); `
+
+For example:
+
+```css
+/* By default, the gradient goes from top to bottom  */
+.box {
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(dodgerblue, yellow);
+}
+
+/* Change direction from left to right */
+.box {
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(to right, dodgerblue, yellow);
+}
+
+/* Direction starts from 45 deg, yellow starts from 30% */
+.box {
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(45deg, dodgerblue, yellow 30%);
+}
+```
+
+[CSS Gradient Generator](https://cssgradient.io/) can make your life easier.
+
+---
+
+#### Borders
+
+The `border` property is a shorthand property for:
+
+- **border-width**
+- **border-style** (solid, dashed, dotted) REQUIRED!
+- **border-color**
+
+For example:
+
+```css
+.box {
+  width: 800px;
+  height: 400px;
+  background: wheat;
+
+  /* border: width style color */
+  border: 10px dashed royalblue;
+}
+```
+
+On top of that, you can also specify the direction of the border
+
+==Note: the order matters==
+
+Ex:
+
+```css
+.box {
+  width: 800px;
+  height: 400px;
+  background: wheat;
+  border: 10px dashed royalblue;
+
+  /* Set top border */
+  border-top: 20px solid red;
+
+  /* Set width for each side */
+  border-width: 10px 20px 10px 20px; /* trbl (top right bottom left) */
+
+  /* Make the border rounder */
+  border-radius: 50px;
+}
+```
+
+:boom::boom::boom: Wanna create a shape using border ?
+
+[The shape of CSS](https://css-tricks.com/the-shapes-of-css/)
+
+---
+
+#### Shadows
+
+With CSS you can add shadow to text and to elements.
+
+- `text-shadow`
+
+- `box-shadow`
+
+```css
+/* Text shadow */
+h1 {
+  /* horizontal 3px, vertical 3px, blur 5px, color */
+  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Box shadow */
+.box {
+  width: 800px;
+  height: 400px;
+  background: wheat;
+
+  /* set the shadow right in the center */
+  box-shadow: 0 0 30px grey;
+}
+```
+
+---
+
+=<h4 id="2summary">Summary</h4>
+
+- CSS styles can be embedded in an HTML document, written in a separate file (as an external stylesheet) or written inline in an HTML element using the `style` attribute.
+
+- Inline styles overwrite embedded styles which in turn overwrite external styles.
+
+- External stylesheets provide the best separation of HTML and CSS code and result in more maintainable code. Plus, an external stylesheet can be used in many HTML documents.
+
+- We can select elements by their type, class, attribute or ID.
+
+- Relational selectors help us select elements without the need to assign them a specific ID or class. This, however, can result in fragile styles. If we move elements around, our CSS rules may break. We can still use them in situations where we are certain about the location of elements.
+
+- We can take advantage of pseudo-classes to target elements without the need to give them a specific class. The most common pseudo-classes are: `first-child`, `first-of-type`, `last-child`, `last-of-type` and `nth-child`. Pseudo-classes start with a single colon `:`.
+
+- With pseudo-elements we can style a part of an element. The most common pseudo- elements are: `first-letter`, `first-line`, `selection`, `before` and `after`. Pseudo-elements start with double colons `::`.
+
+- Selectors specificity determines the weight of a selector. When multiple selectors target the same element, the browser applies the selector with the higher specificity (weight). If two selectors have the same specificity, the one that comes last is the winner.
+
+- ID selectors are the most specific selectors because we cannot have multiple elements with the same ID. Class and attribute selectors are less specific because we can have many elements with the same class and/or attributes. Element selectors are the least specific selectors.
+
+- In VSCode, we can see the specificity of a rule by hovering our mouse over it. The specificity is represented using three numbers (x, y, z) where x represents the number of ID selectors, y represents the number of class/attribute selectors and z represents the number of element selectors.
+
+- Some CSS properties inherit their value from their parent element. Typically, properties that are used for styling text such as text color, font, font size, etc are inherited. We can stop the inheritance by setting the value of a property to `initial`. To enforce inheritance, we should set the value of a property to `inherit`.
+
+- We can specify colors by their name, hexadecimal value, RGB/RGBA value or HSL/ HSLA value.
+
+- RGBA and HSLA values include an alpha channel used for transparency. The value for the alpha channel is a decimal point number between 0 (completely transparent) and 1 (completely opaque).
+
+- Using the `linear-gradient()` and `radial-gradient()` functions we can create gradients in CSS. Gradients are images so they cannot be used as the value of `background-color` property. We can use them as the value of `background-image` or `background` properties.
+
+- The border property is a shorthand property for `border-top`, `border-right`, `border-bottom` and `border-left`. It takes three values: the thickness of the border, its style and its color.
+
+- We also have specific properties like `border-width`, `border-style` and `border-color`. These properties take four values for the top, right, bottom and left borders.
+
+- Using the `box-shadow` and `text-shadow` properties we can apply a shadow to elements and text. These properties take a few values. The first two values determine the horizontal and vertical distance of the shadow from the element. The third value (called blur radius) determines the softness of the border. We can specify the color as the fourth value.
 
 ---
 
@@ -1595,7 +1833,7 @@ Now the code should look like this:
 
 `cmd + d` to show 2 cursors to replace a name with 2 selected variable
 
-Zen Coding:
+**Zen Coding:**
 `section>ul>li*3{Item $}` + `tab` =
 
 ```html
