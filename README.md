@@ -64,6 +64,8 @@ Front End Journey 101 Memos
 
     - [Summary](#2summary)
 
+    - [CSS Cheat Sheet](#css-cheat-sheet)
+
   - [Development tools](#development-tools)
 
 ---
@@ -1739,7 +1741,7 @@ h1 {
 
 ---
 
-=<h4 id="2summary">Summary</h4>
+<h4 id="2summary">Summary</h4>
 
 - CSS styles can be embedded in an HTML document, written in a separate file (as an external stylesheet) or written inline in an HTML element using the `style` attribute.
 
@@ -1776,6 +1778,75 @@ h1 {
 - Using the `box-shadow` and `text-shadow` properties we can apply a shadow to elements and text. These properties take a few values. The first two values determine the horizontal and vertical distance of the shadow from the element. The third value (called blur radius) determines the softness of the border. We can specify the color as the fourth value.
 
 ---
+
+#### CSS Cheat Sheet
+
+| Basic Selectors     |                                      |
+| ------------------- | ------------------------------------ |
+| `article`           | All article elements                 |
+| `.product`          | Elements with the product class      |
+| `#products`         | The element with the ID of products  |
+| `a[href=“...”]`     | Anchors with the given href          |
+| `a[href*=“google”]` | Anchors whose href contains google   |
+| `a[href^=“https”]`  | Anchors whose href starts with https |
+| `a[href$=“.com”]`   | Anchors whose href ends with .com    |
+
+| Relational Selectors |                                                      |
+| -------------------- | ---------------------------------------------------- |
+| `#products p`        | All p elements inside #products                      |
+| `#products > p`      | All p elements that are direct children of #products |
+| `#products + p`      | The p element immediately after #products (sibling)  |
+| `#products ~ p`      | All p elements after #products (siblings)            |
+
+| Pseudo-class Selectors     |                                                    |
+| -------------------------- | -------------------------------------------------- |
+| `article :first-child`     | The first child of article elements                |
+| `article :first-of-type`   | The first occurrence of elements of different type |
+| `article p:first-of-type`  | The first p element inside article elements        |
+| `article :last-child`      |                                                    |
+| `article :last-of-type`    |                                                    |
+| `article :nth-child(odd)`  |                                                    |
+| `article :nth-child(even)` |                                                    |
+
+| Pseudo-element Selectors |                                                    |
+| ------------------------ | -------------------------------------------------- |
+| `p::first-letter`        | The first letter of every p element                |
+| `p::first-line`          | The first line of every p element                  |
+| `::selection`            | Any selected element                               |
+| `p::before`              | To insert content before the content of p elements |
+| `p::after`               | To insert content after the content of p elements  |
+
+| Colors                    |                            |
+| ------------------------- | -------------------------- |
+| `#fcba03`                 | Hexadecimal value          |
+| `rgb(252, 186, 3)`        | RGB value                  |
+| `rgba(252, 186, 3, 0.5)`  | Semi-transparent RGB value |
+| `hsl(44, 98%, 50%)`       | HSL value                  |
+| `hsla(44, 98%, 50%, 0.5)` | Semi-transparent HSL value |
+
+| Gradients                                                         |
+| ----------------------------------------------------------------- |
+| `background: linear-gradient(blue, yellow);`                      |
+| `background: linear-gradient(to bottom right, blue, yellow);`     |
+| `background: linear-gradient(45deg, blue, yellow);`               |
+| `background: linear-gradient(45deg, blue, yellow 30%);`           |
+| `background: radial-gradient(white, yellow);`                     |
+| `background: radial-gradient(circle, white, yellow);`             |
+| `background: radial-gradient(circle at top left, white, yellow);` |
+
+| Borders                                                          |
+| ---------------------------------------------------------------- |
+| `border: 10px solid blue;`                                       |
+| `border-width: 10px 20px 30px 40px; /* top right bottom left */` |
+| `border-radius: 5px;`                                            |
+| `border-radius: 100%; /* full circle */`                         |
+
+| Shadows                                        |
+| ---------------------------------------------- |
+| `box-shadow: 10px 10px;`                       |
+| `box-shadow: 10px 10px grey;`                  |
+| `box-shadow: 10px 10px 5px grey;`              |
+| `text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);` |
 
 ### Development tools
 
