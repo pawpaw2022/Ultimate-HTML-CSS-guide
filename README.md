@@ -49,6 +49,8 @@ Front End Journey 101 Memos
 
     - [Pseudo-class Selectors](#pseudo-class-selectors)
 
+    - [Pseudo-element selectors](#pseudo-element-selectors)
+
   - [Development tools](#development-tools)
 
 ---
@@ -1405,32 +1407,135 @@ p::first-letter {
 }
 
 /* style first line of each <p> */
-p::first-line{
-    font-weight: bold;
+p::first-line {
+  font-weight: bold;
 }
 
 /* Style the background color of cursor selection */
-::selection{
-    background-color: pink;
+::selection {
+  background-color: pink;
 }
 
 /* insert a Pseudo-element before <p> */
-p::before{
-    content: '...';
-    /* set it to block element that takes the entire block */
-    display: block;
+p::before {
+  content: "...";
+  /* set it to block element that takes the entire block */
+  display: block;
 }
 ```
 
-
+[CSS Pseudo-elements](https://www.w3schools.com/css/css_pseudo_elements.asp)
 
 ---
+
 #### Pseudo-elements VS. Pseudo-classes
 
-__Pseudo-elements__ is used to style part of an element, such as `first-letter`, `first-line`. 
+**Pseudo-elements** is used to style _part of an element_, such as `first-letter`, `first-line`.
 
-__Pseudo-classes__ is used to style elements in a particular state, such as `Hovered anchor`. 
+**Pseudo-classes** is used to style elements _in a particular state_, such as `Hovered anchor`.
 
+---
+
+#### Selectors Specificty
+
+If there are two or more conflicting CSS rules that point to the same element, the browser follows some rules to determine which one is most specific and therefore wins out.
+
+Specificity Hierarchy:
+
+**Inline styles** - An inline style is attached directly to the element to be styled. Example: `<h1 style="color: #ffffff;">`. _(Weight = 1000)_
+
+**IDs** - An ID is a unique identifier for the page elements, such as `#navbar`. _(Weight = 100)_
+
+**Classes, attributes and pseudo-classes** - This category includes .classes, `[attributes] `and pseudo-classes such as `:hover`, `:focus` etc. _(Weight = 10)_
+
+**Elements and pseudo-elements** - This category includes element names and pseudo-elements, such as `h1`, `div`, `:before` and `:after`. _(Weight = 1)_
+
+For example:
+
+```html
+<body>
+  <section>
+    <!-- a paragraph containing class and id -->
+    <p class="text" id="first-line">Lorem ipsum dolor sit, amet</p>
+
+    <!-- inline styling, top priority! -->
+    <p style="color= green;">Lorem ipsum dolor sit, amet</p>
+  </section>
+</body>
+```
+
+```css
+/* General Element, Weight: 0, 0, 1 */
+p {
+  color: pink;
+}
+
+/* Class, Weight: 0, 1, 0 */
+.text {
+  color: red;
+}
+
+/* ID, Weight: 1, 0, 0 */
+#first-line {
+  color: blue;
+}
+
+/* ID + Class Weight: 1, 1, 0 */
+.text#first-line {
+  color: blueviolet;
+}
+```
+
+In the case above, the text color should be `blueviolet` since it hold the most weight.
+
+==Note: Be aware not to be too specific about your specificty since it may leave a mess==
+
+---
+
+#### Inheritance
+
+In CSS, inheritance controls what happens when no value is specified for a property on an element.
+
+CSS properties can be categorized in two types:
+
+- **inherited properties** (e.g font, color)
+
+- **non-inherited properties** (e.g border)
+
+For example:
+
+```html
+<!-- a <p> with a word wrapped with <strong> -->
+<body>
+  <p>Lorem ipsum <strong>dolor</strong> sit amet.</p>
+</body>
+```
+
+If we style the color of `<p>`, the color of `<strong>` will inherit from it,
+
+But the border will not be inherited since it is a non-inherited property:
+
+```css
+p {
+  /* color will be inherited to <strong> */
+  color: dodgerblue;
+  
+  /* border will NOT be inherited to <strong> */
+  border: 1px solid black;
+}
+```
+
+However, if you are unhappy about it :persevere:, you can also manually set inherited properities.
+
+```css
+strong {
+  /* set the color back to initial (black) */
+  color: initial;
+
+  /* Force it to inherit the border properity */
+  border: inherit;
+}
+```
 
 ---
 
