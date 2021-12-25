@@ -1923,6 +1923,8 @@ Now that we have learned the basic syntax about HTML & CSS, it is time to hover 
 
 #### Layout
 
+![Box Model](https://github.com/Paul-l-sining/Frontend-Dev-Memos/blob/main/images/BoxModel.png)
+
 ---
 
 #### Typography
