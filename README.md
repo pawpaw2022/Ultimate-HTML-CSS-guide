@@ -68,6 +68,22 @@ Front End Journey 101 Memos
 
   - [Development tools](#development-tools)
 
+- [Intermediate](#intermediate)
+
+  - [Layout](#layout)
+
+  - [Typography](#typography)
+
+  - [Images](#images)
+
+  - [Forms](#forms)
+
+  - [Transformations, Transitions, and Animations](#transformations-transitions-and-animations)
+
+  - [Writing Clean, Maintainable CSS](#writing-clean-maintainable-css)
+
+  - [Layout](#Layout)
+
 ---
 
 ### Introduction
@@ -1891,6 +1907,41 @@ Now the code should look like this:
   </body>
 </html>
 ```
+
+---
+
+### Intermediate
+
+Now that we have learned the basic syntax about HTML & CSS, it is time to hover to the next level. After completing this level, you should be able to build a functional website.
+
+### _The inspiration quote for today:_
+
+    Always remember that you are absolutely unique. Just like everyone else.
+                                                --Margaret Mead
+
+---
+
+#### Layout
+
+---
+
+#### Typography
+
+---
+
+#### Images
+
+---
+
+#### Forms
+
+---
+
+#### Transformations, Transitions, and Animations
+
+---
+
+#### Writing Clean, Maintainable CSS
 
 ---
 
