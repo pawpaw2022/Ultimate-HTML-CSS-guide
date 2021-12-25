@@ -1,6 +1,4 @@
-# **Introduction to Web Dev**
-
-Front End Journey 101 Memos
+# **Front End Journey Memos**
 
 <img style="width:400px;" src="https://camo.githubusercontent.com/cae12fddd9d6982901d82580bdf321d81fb299141098ca1c2d4891870827bf17/68747470733a2f2f6d69726f2e6d656469756d2e636f6d2f6d61782f313336302f302a37513379765349765f7430696f4a2d5a2e676966" alt="Programming is my life~"/>
 
@@ -9,79 +7,52 @@ Front End Journey 101 Memos
 ## Table of Content
 
 - [Introduction](#introduction)
-
   - [HTML basics](#html-basics)
-
     - [HTML tags](#html-tags)
-
     - [Head Section](#head-section)
-
     - [Text](#text)
-
     - [Entities](#entities)
-
     - [Hyperlinks](#hyperlinks)
-
     - [Images](#images)
-
     - [Video and Audio](#video-and-audio)
-
     - [Lists](#lists)
-
     - [Tables](#tables)
-
     - [Containers](#containers)
-
     - [Semantic Elements](#semantic-elements)
-
     - [Basic structure of a web page](#basic-structure-of-a-web-page)
-
     - [Summary](#1summary)
-
   - [CSS basics](#css-basics)
-
     - [Providing CSS](#providing-css)
-
     - [Normalizing CSS](#normalizing-css)
-
-    - [Basic Selectors](#basic-selectors)
-
+    - [Basic selectors](#basic-selectors)
     - [Relational selectors](#relational-selectors)
-
-    - [Pseudo-class Selectors](#pseudo-class-selectors)
-
+    - [Pseudo-class selectors](#pseudo-class-selectors)
     - [Pseudo-element selectors](#pseudo-element-selectors)
-
     - [Inheritance](#inheritance)
-
     - [Color](#color)
-
     - [Gradients](#gradients)
-
     - [Borders](#borders)
-
     - [Shadows](#shadows)
-
     - [Summary](#2summary)
-
     - [CSS Cheat Sheet](#css-cheat-sheet)
-
   - [Development tools](#development-tools)
-
 - [Intermediate](#intermediate)
-
   - [Layout](#layout)
-
+    - [The box model](#the-box-model)
+    - [Sizing elements](#sizing-elements)
+    - [Overflowing](#overflowing)
+    - [Measurement units](#measurement-units)
+    - [Positioning](#positioning)
+    - [Floating elements](#floating-elements)
+    - [Flexbox](#flexbox)
+    - [Grid](#grid)
+    - [Hiding elements](#hiding-elements)
+    - [Media queries](#media-queries)
   - [Typography](#typography)
-
   - [Images](#images)
-
   - [Forms](#forms)
-
   - [Transformations, Transitions, and Animations](#transformations-transitions-and-animations)
-
   - [Writing Clean, Maintainable CSS](#writing-clean-maintainable-css)
-
   - [Layout](#Layout)
 
 ---
@@ -1923,19 +1894,169 @@ Now that we have learned the basic syntax about HTML & CSS, it is time to hover 
 
 #### Layout
 
-![Box Model](https://github.com/Paul-l-sining/Frontend-Dev-Memos/blob/main/images/BoxModel.png)
+##### The box model
+
+Each element has `content` < `padding` < `border` < `margin` area.
+
+Tips: you can always inspect and adjust this box model in your browser.
+
+==Be cautious about `padding` and `margin`==
+
+Ex:
+
+Say we want to set the margin between 2 `<p>` to `20px`:
+
+```html
+<p>Lorem ipsum dolor sit amet.</p>
+<p>Lorem ipsum dolor sit amet.</p>
+```
+
+```css
+p {
+  /* margin between will be 40px */
+  padding: 20px;
+  margin: 0;
+}
+
+p {
+  /* Margin collapsing, margin will be 20px */
+  padding: 0;
+  margin: 20px;
+}
+```
+
+So you should always use `margin` to seperate elements, and use `padding` to add space between `content` and `border`
+
+##### Sizing elements
+
+Since every element has a box model, things get a little tricker when it comes to sizing.
+
+For example, say we have a box `<div>` element:
+
+```html
+<body>
+  <div class="box"></div>
+</body>
+```
+
+```css
+.box {
+  /* define width and height for 200px each */
+  width: 200px;
+  height: 200px;
+
+  /* define the color of the box */
+  background-color: gold;
+
+  /* add 20px padding and border */
+  padding: 20px;
+  border: 20px solid orange;
+}
+```
+
+When you inspect the box in the browser, it turns out that the size of the box is `280x280` instead of `200x200`.
+
+The reason for that is because `width` and `height` you defined indicates `content` box, it doesn't take `padding` and `border` into account. _(Margin doesn't affect the actual size)_
+
+To address this issue, we can use `box-sizing` property, which by default is set to `content-box`.
+
+```css
+.box {
+  box-sizing: border-box;
+}
+```
+
+Note: if you want to apply this rule to all box elements, you can use `universal selector`, i.e. `*`
+However, `*` doesn't apply to [Pseudo-element](#pseudo-element-selectors), i.e. `::before`, `::after` so you have to manually include them.
+
+```css
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+```
+
+Another triky issue is that `<div>` is a block-level element, which means if 2 boxes are created, they will not be arranged onto a single line.
+
+If we change `<div>` to a inline element, i.e.`<span>`:
+
+```html
+<body>
+  <span class="box"></span>
+  <span class="box"></span>
+</body>
+```
+
+```css
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* a 200x200 gold box */
+.box {
+  width: 200px;
+  height: 200px;
+  background-color: gold;
+}
+
+/* some text inside the box */
+.box::before {
+  content: "hello";
+}
+```
+
+The `<span>` will disrespect the `width` and `height`, this is because `display` property of `<span>` is set to `inline` by default. _(For `<div>` is set to `block`)_
+
+We can add and set `display` to a third value, `inline-block` to make it inline, but also has block property.
+
+```css
+.box {
+  display: inline-block;
+}
+```
+
+Note: you can delete the space between 2 `<span>` to make 2 boxes adjacent to each other:
+
+```html
+<body>
+  <span class="box"></span><span class="box"></span>
+</body>
+```
 
 ---
 
-#### Typography
+##### Overflowing
 
 ---
 
-#### Images
+##### Measurement units
 
 ---
 
-#### Forms
+##### Positioning
+
+---
+
+##### Floating elements
+
+---
+
+##### Flexbox
+
+---
+
+##### Grid
+
+---
+
+##### Hiding elements
+
+---
+
+##### Media queries
 
 ---
 
