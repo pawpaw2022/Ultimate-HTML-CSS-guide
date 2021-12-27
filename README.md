@@ -2030,25 +2030,559 @@ Note: you can delete the space between 2 `<span>` to make 2 boxes adjacent to ea
 
 ##### Overflowing
 
+The `overflow` property specifies whether to clip the content or to add scrollbars when the content of an element is too big to fit in the specified area.
+
+The overflow property has the following values:
+
+- `visible` - Default. The overflow is not clipped. The content renders outside the element's box
+- `hidden` - The overflow is clipped, and the rest of the content will be invisible
+- `scroll` - The overflow is clipped, and a scrollbar is added to see the rest of the content
+- `auto` - Similar to scroll, but it adds scrollbars only when necessary
+
+Ex:
+
+```css
+.box {
+  width: 200px;
+  height: 200px;
+  border: 3px solid gold;
+
+  /* set overflow property to 'auto' */
+  overflow: auto;
+}
+```
+
+==Note: The overflow property only works for block elements with a specified height.==
+
+==Note: In OS X Lion (on Mac), scrollbars are hidden by default and only shown when being used (even though "overflow:scroll" is set).==
+
 ---
 
 ##### Measurement units
+
+CSS has several different units for expressing a length.
+
+Many CSS properties take "length" values, such as `width`, `margin`, `padding`, `font-size`, etc.
+
+Length is a number followed by a length unit, such as `10px`, `2em`, etc.
+
+There are two types of measurement units: **absolute** and **relative**.
+
+| Absolute |       |
+| -------- | ----- |
+| `px`     | Pixel |
+
+| Relative |                                       |
+| -------- | ------------------------------------- |
+| `%`      | relative to the size of the container |
+| `vw`     | relative to viewport _(view width)_   |
+| `vh`     | relative to viewport _(view height)_  |
+| `em`     | relative to font size                 |
+| `rem`    | relative to font size                 |
+
+==Note: The em and rem units are practical in creating perfectly scalable layout!==
+==\* Viewport = the browser window size. If the viewport is 50cm wide, 1vw = 0.5cm.==
+
+Ex:
+
+```css
+.box {
+  /* 10 x font size of the current element */
+  width: 15rem; /* based on font-size */
+  height: 100vh; /* based on viewport */
+  border: 3px solid gold; /* fixed size */
+  background-color: lightblue;
+}
+```
 
 ---
 
 ##### Positioning
 
+The position property specifies the type of positioning method used for an element (`relative`, `fixed` or `absolute`).
+
+**position: relative;**
+
+An element with `position: relative;` is positioned relative to its normal position.
+
+Setting the top, right, bottom, and left properties of a relatively-positioned element will cause it to be adjusted away from its normal position. Other content will not be adjusted to fit into any gap left by the element.
+
+For example:
+
+Say we have 3 `<div class="box">` boxes inside a big box `<div class="boxes">`
+
+```html
+<body>
+  <div class="boxes">
+    <!-- Make 2 classes for each, separate by space -->
+    <div class="box box-one"></div>
+    <div class="box box-two"></div>
+    <div class="box box-three"></div>
+  </div>
+</body>
+```
+
+Color your boxes and set the second box to relative position:
+
+```css
+.boxes {
+  border: 3px solid lightgrey;
+}
+
+.box {
+  width: 5rem;
+  height: 5rem;
+}
+
+.box-one {
+  background-color: gold;
+}
+
+.box-two {
+  background-color: tomato;
+  /* box-two is relative to its normal position  */
+  position: relative;
+
+  left: 4rem;
+  bottom: 2rem;
+
+  /* Make box-two underneath the other boxes */
+  z-index: -1;
+}
+
+.box-three {
+  background-color: dodgerblue;
+}
+```
+
+Note: The `z-index` property specifies the stack order of an element. _(the higher `z-index`, the higher the stack order)_
+
+**position: absolute;**
+
+An element with `position: absolute;` is positioned relative to the nearest positioned ancestor (instead of positioned relative to the viewport, like fixed).
+
+However; if an absolute positioned element has no positioned ancestors, it uses the document body, and moves along with page scrolling.
+
+==Note1: Absolute positioned elements are removed from the normal flow, and can overlap elements.==
+
+Note2: When you set an `absolute` postion, its parent has to be `relative`.
+
+For example:
+
+```css
+.boxes {
+  border: 3px solid lightgrey;
+  /* Set parent box to relative */
+  position: relative;
+}
+
+.box {
+  width: 5rem;
+  height: 5rem;
+}
+
+.box-one {
+  background-color: gold;
+}
+
+.box-two {
+  background-color: tomato;
+  /* set to absolute */
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.box-three {
+  background-color: dodgerblue;
+}
+```
+
+In the case above, `box-two` will be display on another layer other than `box-one` and `box-three`. Hence, `box-one` and `box-three` won't save the space for `box-two` as it is in different universe~ (if you know multiverse lol)
+
+**position: fixed;**
+
+An element with `position: fixed;` is positioned relative to the viewport, which means it always stays in the same place even if the page is scrolled. The top, right, bottom, and left properties are used to position the element.
+
+For instance, if you want to stick your nav bar to the top as you scroll down the page, you can set `position: fixed;`
+
+Ex:
+
+```css
+body {
+  margin: 10px;
+  height: 200vh; /* make a page longer to scroll */
+}
+
+.box-two {
+  background-color: tomato;
+  position: fixed;
+  top: 0; /* make it stick to the top of the viewport */
+  z-index: 10;
+}
+```
+
+If you want to make your box wider:
+
+```css
+.box-two {
+  background-color: tomato;
+  position: fixed;
+  top: 0;
+
+  /* box starting from 2rem away from the left to 2rem away from the right */
+  left: 2rem;
+  right: 2rem;
+
+  /* let browser decide width instead of parent */
+  width: auto;
+  z-index: 10;
+}
+```
+
 ---
 
 ##### Floating elements
+
+The `float` property specifies whether an element should float to the left, right, or not at all.
+
+Ex: Say you have a tweet with an avatar on the left, and text on the right:
+
+```html
+<body>
+  <article class="tweet">
+    <!-- Image  -->
+    <div class="avatar"></div>
+    <p>
+      <!-- tweet Text... -->
+    </p>
+    <p class="clear">
+      <!-- comment, like, share Text... -->
+    </p>
+  </article>
+</body>
+```
+
+```css
+.avatar {
+  width: 5rem;
+  height: 5rem;
+  background-color: gold;
+
+  /* set the avator float to the left */
+  float: left;
+
+  /* set a margin between image and text */
+  margin-right: 1rem;
+}
+```
+
+Note: Elements next to a floating element will flow around it. To avoid this, use the `clear` property.
+
+```css
+.clear {
+  clear: both;
+}
+```
+
+Another problem is when we have short text (shorter than avator) inside the `.tweet` class, the border will not include the avator, to avoid this, we need to `clear` again at the end of parent class, i.e. `.tweet`
+
+We can either add another `<div class="clear">` at the end:
+
+```html
+<body>
+  <div class="avatar"></div>
+  <!-- ... -->
+  <div class="clear"></div>
+</body>
+```
+
+Or add pseudo element `::after` in css:
+
+```css
+/* replace '.tweet' with '.clearfix' and include multiple cases */
+.tweet::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+```
 
 ---
 
 ##### Flexbox
 
+The Flexible Box Layout Module, makes it easier to design flexible responsive layout structure without using float or positioning.
+
+To start using the Flexbox model, you need to first define a flex container.
+
+Ex:
+
+```html
+<body>
+  <div class="container">
+    <div class="box">A</div>
+    <div class="box">B</div>
+    <div class="box">C</div>
+  </div>
+</body>
+```
+
+The flex container becomes flexible by setting the `display` property to `flex`:
+
+The `flex-direction` property defines in which direction the container wants to stack the flex items. By default, it is set to `row`, you can set it to `column`, `column-reverse`, `row-reverse`
+
+```css
+.container {
+  border: 3px solid lightgray;
+  display: flex;
+  /* flex item horizontally */
+  flex-direction: row;
+}
+```
+
+**Aligning items**
+
+The `align-items` property is used to align the flex items.
+
+- `justify-content` (along the **main** axis)
+  - `center`, `flex-start`, `flex-end`, `stretch`, `baseline`, `space-evenly`, `space-between` etc
+- `align-items` (along the **cross** axis)
+- `align-content`
+- `align-self`
+
+```css
+.container {
+  /* position all item to the center of main axis, i.e. horizontal */
+  justify-content: center;
+  /* push all item to the end of cross axis, i.e. vertical */
+  align-items: flex-end;
+  /* Make the box longer so it can show the vertical axis */
+  height: 90vh;
+}
+```
+
+If we have too many boxes to fit in a single line, we can set `flex-wrap` property to `wrap`, and set `align-content` property to adjust the alignment:
+
+```css
+.container {
+  /* Wrap all boxes and push em to the center */
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+.box-one {
+  /* only align box-one to the bottom and the rest stay at the center */
+  align-self: flex-end;
+}
+```
+
+**Sizing items**
+
+- `flex-basis` (the initial size of a flex item)
+- `flex-grow` (the growth factor)
+- `flex-shrink` (the shrink factor)
+- `flex` (shorthand for )
+
+Note: all above should apply to flex items (i.e. `box`) instead of flex container (i.e. `container`)
+
+**flex-basis**
+
+The `flex-basis` property specifies the initial length of a flex item.
+
+Ex:
+
+```css
+.box {
+  /* the size of the box is 10x5 (width x height) */
+
+  flex-basis: 10rem; /* 10rem will overwrite width if 'flex-direction' is row */
+  width: 5rem;
+  height: 5rem;
+}
+```
+
+**flex-grow**
+
+The `flex-grow` property specifies how much a flex item will grow relative to the rest of the flex items.
+
+The value must be a number, default value is 0.
+
+Ex:
+
+```css
+.box {
+  flex-grow: 1;
+}
+
+.box-one {
+  /* box-one grow faster than the other boxes */
+  flex-grow: 2;
+}
+```
+
+**flex-shrink**
+
+The `flex-shrink` property specifies how much a flex item will shrink relative to the rest of the flex items.
+
+```css
+.box {
+  flex-shrink: 1;
+}
+```
+
+**flex**
+
+The `flex` property is a shorthand property for the `flex-grow`, `flex-shrink`, and `flex-basis` properties.
+
+```css
+.box {
+  /* flex-grow: 1 */
+  flex: 1;
+  /* flex-grow: 1; flex-basis: 15rem */
+  flex: 1 15rem;
+  /* flex-grow: 1; flex-shrink: 1 ;flex-basis: 15rem */
+  flex: 1 1 15rem;
+}
+```
+
+==Note: The value of `flex-grow` and `flex-shrink` has no units !==
+
 ---
 
 ##### Grid
+
+The CSS Grid Layout Module offers a grid-based layout system, with rows and columns, making it easier to design web pages without having to use floats and positioning.
+
+To set an element to `grid`, first to set `display` property to `grid`, then set the size of the grid.
+
+```css
+.container {
+  display: grid;
+
+  /* 3 x 2 */
+  grid-template-rows: repeat(3, 100px); /* equal to "100px 100px 100px" */
+  grid-template-columns: repeat(2, 100px);
+
+  /* easier way to set rows and cols at a time */
+  grid-template: repeat(3, 100px) / repeat(2, 100px);
+
+  border: 3px solid grey;
+}
+```
+
+**Aligning items**
+
+Similar to flex
+The `align-items` property is used to align the items.
+
+==Note: by default, they are set to `stretch`==
+
+Move an item inside the container
+
+- `justify-items` (along the **horizontal** axis) e.g. `left`, `right`, `center`.
+- `align-items` (along the **vertical** axis)
+
+Move the grid as a whole
+
+- `justify-content`
+- `align-content`
+
+**fr Unit**
+
+`fr` stands for fraction, which is another unit when it comes to creating grid.
+
+By using `fr` , we are telling CSS to use a number of fraction of the available space in the container.
+
+```css
+.container {
+  display: grid;
+
+  /* Row: 100px fixed 1st& 3rd row, 2nd will be resized when you change the browser size. */
+  /* Col: 30% for 1st col, 70% for 2nd col */
+  grid-template: 100px auto 100px / 30fr 70fr;
+}
+```
+
+**Gap**
+
+Gaps between each row and column
+
+- `row-gap`
+- `column-gap`
+- `gap` (shorthand for row&col-gap)
+
+Ex:
+
+```css
+.container {
+  row-gap: 10px;
+  column-gap: 10px;
+
+  /* row-gap: 10px, col-gap: 10px */
+  gap: 10px;
+
+  /* row-gap: 10px, col-gap: 20px */
+  gap: 10px 20px;
+}
+```
+
+**Placing items** (Item properties)
+
+- `grid-row`
+- `grid-column`
+- `grid-area`
+
+Ex:
+Say we want the first box (header) to span the entire top row, we must need `grid-row` to place the box.
+
+```css
+.box-one {
+  /* span column from col 1 to col 3 */
+  grid-column: 1 / 3;
+  /* Alternatively, use '-1` to represent the last col */
+  grid-column: 1 / -1;
+  /* Alternatively, use `span 2` to indicate span the next 2 cols */
+  grid-column: 1 / span 2;
+
+  /* place the box starting at row 2, ending before row 4 */
+  grid-row: 2 / 4;
+
+  /* start / end */
+  /* row / column */
+  grid-area: 1 / 1 / 1 / 3;
+}
+```
+
+**Placing items in named areas** (Item properties)
+
+You can also define a name for each block and use `grid-area` to indicate the area each box should go to.
+
+- `grid-template-areas`
+- `grid-area`
+
+To started with, define names of the grid in the container using `grid-template-areas`:
+
+```css
+.container {
+  /* define area's name separated by space */
+  grid-template-areas:
+    "header header" /* row 1 col 1 & row 1 col 2: header */
+    "sidebar main" /* row 2 col 1: sidebar,  row 2 col 2: main */
+    ". footer"; /* row 3 col 1: . row 3 col 2: footer */
+}
+```
+
+Next, call the name of the block to place each item: (without `""`)
+
+```css
+.box-one {
+  grid-area: header;
+}
+.box-four {
+  grid-area: footer;
+}
+```
 
 ---
 
