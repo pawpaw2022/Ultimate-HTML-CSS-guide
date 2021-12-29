@@ -2588,9 +2588,189 @@ Next, call the name of the block to place each item: (without `""`)
 
 ##### Hiding elements
 
+Hiding elements is simple, say we have 2 `<p>`
+
+```html
+<body>
+  <p class="first">First</p>
+  <p>Second</p>
+</body>
+```
+
+- `display` specifies how an element should be displayed
+
+- `visibility` specifies whether or not an element should be visible
+
+Ex:
+
+```css
+.first {
+  /* not to display the text */
+  display: none;
+  /* hide the text, but save the space */
+  visibility: hidden;
+}
+```
+
 ---
 
 ##### Media queries
+
+The `@media` rule is used in media queries to apply different styles for different media types/devices.
+
+In other words, media queries allows us to change the layout when the user switch from one platform to another.
+
+Ex: say we have 2 boxes of text, we want to display them vertically in mobile and horizontally on desktop.
+
+```html
+<body>
+  <div class="container">
+    <!-- box 1 -->
+    <div class="box">
+      <p>
+        <!-- dummy text -->
+      </p>
+    </div>
+    <!-- box 2 -->
+    <div class="box">
+      <p>
+        <!-- dummy text -->
+      </p>
+    </div>
+  </div>
+</body>
+```
+
+To start off with, we develop mobile view first since it is smaller and easier to design:
+
+```css
+.container {
+  display: flex;
+  /* set the boxes to display vertically */
+  flex-direction: column;
+}
+
+.box {
+  /* set the box color */
+  background-color: gold;
+  padding: 1rem;
+}
+
+/* target the second element of the box */
+.box:nth-of-type(2) {
+  background-color: dodgerblue;
+}
+```
+
+The issue is that the current boxes are aligned vertically, it is easier to read, but when the screen size gets wider, it is difficult to read each line.
+
+Hence, we need a breakpoint to change the box align horizontally using `@media`
+
+```css
+/* If it is displayed on a screen, whose size is between 600px and 900px  */
+@media screen and (min-width: 600px) and (max-width: 900px) {
+  .container {
+    /* change boxes to display horizontally */
+    flex-direction: row;
+  }
+}
+
+/* If it is printed, make sure font-size use 'pt' unit to look formal as well as 'cm' as padding  */
+@media print {
+  body {
+    font-size: 12pt;
+  }
+
+  .box {
+    padding: 0.5cm;
+  }
+}
+```
+
+In sum, we use media queries to apply some certain rules only when some certain conditions are met.
+
+---
+
+##### Summary of Layout
+
+- When rendering an HTML document, the browser puts each element inside a box. The
+  box contains four areas: the content area, the padding area, the border area and the
+  margin area.
+- Padding is the space between the border and the content area. Margin is the space
+  outside of an element and should be used to separate elements from each other.
+- Margin collapsing happens when the top and bottom margins of elements are
+  combined into a single margin. The size of the margin is equal to the largest of the two
+  margins.
+- There are two types of HTML elements: block-level and inline.
+- Block-level elements always start on a new line and take up the entire available
+  horizontal space. The `<p>` and `<div>` elements are examples of block-level elements.
+- Inline elements don’t start on a new line. They take up as much width as necessary. The
+  `<span>`, `<a>` and `<img>` are a few examples of inline elements.
+- We can size elements by setting their width and height properties. These properties
+  have no effect on inline elements. To size an inline element, we need to set its `display`
+  property to `inline-block`.
+- By default, the width and height properties are applied to the content box. So paddings
+  and borders increase the size of the visible box. This behavior can be changed by setting
+  the `box-sizing` property to `border-box`.
+- Overflow occurs when an element’s content is too large to fit. Using the `overflow`
+  property we can specify what should happen when overflow occurs.
+- Measurement units in CSS fall into two categories: absolute and relative units. Examples
+  of absolute units are px, pt, in, cm, etc. Examples of relative units are %, vw, vh, em and
+  rem.
+- Using the position property we can precisely position an element. The default value
+  of this property is `static`. If we change the value of this property, the element is considered positioned.
+- By setting the `position` to `relative`, we can position an element relative to its
+  normal position. By setting it to `absolute`, we can position it relative to its positioned
+  parent. That means, the parent (or ancestor) should be a positioned element. By setting
+  the position to `fixed`, we can position the element relative to the viewport.
+- By setting the `float` property, we can push an element to the left or right side of its
+  container. Other elements will flow around the floated element and fill the available
+  space.
+- Floated elements are invisible to their parent. This behavior is called collapsing parent
+  and often causes layout issues. To fix this, we have to clear the floated elements.
+- The Flexible Box Layout (or FlexBox or just Flex) is used for laying out elements in one
+  direction (in a row or column). A common application of Flex is in building navigation
+  menus.
+- The Grid Layout is a two-dimensional grid system. It’s often used to lay out major page
+  areas, photo galleries, etc.
+- With media queries we can provide different styles for different devices depending on
+  their features such as screen size, orientation, etc. The most common application of
+  media queries is in providing different styles based on the viewport width.
+- By using media queries and relative measurement units we can build responsive web
+  sites that adjust smoothly to various screen sizes.
+
+---
+
+#### Typography
+
+Typography is the art of creating beautiful and easy-to-read text. Given that 95% of the
+content on the web is text, as a front-end developer, you must ensure that the text on
+your web pages is easy to read and visually appealing on various screen sizes.
+
+---
+
+##### Styling fonts
+
+Fonts fall into three main categories: Serif, Sans-serif and Monospace. Serif fonts have a
+line/stroke at the edges of their characters. They’re more professional and serious.
+Sans-serif fonts don’t have those edges. They’re more modern, warm and friendly.
+Monospace fonts have equal-width characters. They’re often used in displaying code.
+
+```css
+body {
+  margin: 10px;
+  /* ctrl + space to check font stack */
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+p {
+  /* 100-900, normal, bold, light... */
+  font-weight: normal;
+  font-style: italic;
+  font-size: 1rem;
+  color: #333;
+}
+```
 
 ---
 
