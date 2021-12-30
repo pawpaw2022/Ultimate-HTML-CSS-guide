@@ -2756,6 +2756,10 @@ line/stroke at the edges of their characters. They’re more professional and se
 Sans-serif fonts don’t have those edges. They’re more modern, warm and friendly.
 Monospace fonts have equal-width characters. They’re often used in displaying code.
 
+**Serif**: Georgia, Times New Roman
+**Sans-serif**: Avenir, Arial, Futura, Helvetica, Roboto
+**Monospace**: Consolas, Courier, Ubuntu
+
 ```css
 body {
   margin: 10px;
@@ -2770,6 +2774,311 @@ p {
   font-size: 1rem;
   color: #333;
 }
+```
+
+---
+
+##### Embedding Web Fonts
+
+Where to find fonts:
+
+[fontsquirrel.com](https://www.fontsquirrel.com/)
+[fonts.com](https://www.fonts.com/)
+[myfonts.com](https://www.myfonts.com/)
+
+To embed webb fonts, the format of the font has to be in `woff` or `woff2` format as they are more compressed, therefore we need to convert it to the correct format before we use them.
+
+[webfont generator](https://www.fontsquirrel.com/tools/webfont-generator)
+
+Create a folder under your css file named `fonts/YOUR_FONT_NAME`
+
+Drag all `woff` or `woff2` fonts inside that folder
+
+On the top of your main stylesheet, add reference, making sure to provide correct URL
+
+Ex:
+
+```css
+/* regular font */
+@font-face {
+  font-family: "opensans";
+  src: url("fonts/open-sans/opensans-regular-webfont.woff2") format("woff2"), url("fonts/open-sans/opensans-regular-webfont.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* bold font */
+@font-face {
+  font-family: "opensans";
+  src: url("fonts/open-sans/opensans-bold-webfont.woff2") format("woff2"), url("fonts/open-sans/opensans-bold-webfont.woff")
+      format("woff");
+  font-weight: bold;
+  font-style: normal;
+}
+```
+
+---
+
+##### Flash of unstyled text (FOUT)
+
+Flash of unstyled text (FOUT) is an instance where a web page appears briefly with the browser's default styles prior to loading an external CSS stylesheet
+
+There is no way to avoid this issue since the network is unpredictable.
+
+However, there are some ways to reduce the bad user experience !
+
+We can use `font-display` property to tell the browser how to handle this scenario. (by default is set to `auto`)
+
+Ex:
+
+```css
+@font-face {
+  font-display: swap;
+}
+```
+
+The font-display property accepts five values:
+
+- `auto` (default): Allows the browser to use its default method for loading, which is most often similar to the block value.
+
+- `block`: Instructs the browser to briefly hide the text until the font has fully downloaded. More accurately, the browser draws the text with an invisible placeholder then swaps it with the custom font face as soon as it loads. This is also known as a “flash of invisible text” or FOIT.
+
+- `swap`: Instructs the browser to use the fallback font to display the text until the custom font has fully downloaded. This is also known as a “flash of unstyled text” or FOUT.
+
+- `fallback`: Acts as a compromise between the auto and swap values. The browser will hide the text for about 100ms and, if the font has not yet been downloaded, will use the fallback text. It will swap to the new font after it is downloaded, but only during a short swap period (probably 3 seconds).
+
+- `optional`: Like fallback, this value tells the browser to initially hide the text, then transition to a fallback font until the custom font is available to use. However, this value also allows the browser to determine whether the custom font is even used at all, using the user’s connection speed as a determining factor where slower connections are less likely to receive the custom font.
+
+---
+
+##### Font services
+
+Font Services:
+[Google Web Fonts](https://fonts.google.com/)
+[Adobe Fonts](https://fonts.adobe.com/)
+[fonts.com](https://www.fonts.com/)
+
+Go to the website,
+Select the font you like,
+Copy the link of the font above your stylesheet link.
+
+Ex:
+
+```html
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Roboto:wght@700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Insert the font link before your css file -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/normalize.css" />
+</head>
+```
+
+Explaination of the link:
+`https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Roboto:wght@700&display=swap`
+
+`?` means query, the following should be query parameters
+`=` means the value of the parameter
+`+` means `space`
+`;` means and, you can add another size of the same font by adding `;`
+`&` means another query parameter
+`display=swap` by default, `display` is set to `swap`
+
+---
+
+##### System font stack
+
+System font stack allows us to:
+
+- Boost performance
+- No flash of unstyled text (FOUT)
+- Native look
+- Overall: better experience
+- (drawback) Default fonts vary
+
+To import system font stack:
+
+```css
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+```
+
+---
+
+##### sizing fonts
+
+When sizing fonts, try not to set in `px`, instead, you should use `rem` unit
+
+The standard unit of `rem` in the browser is `16px`, but it is hard to calculate, to accomplish that, we can use:
+
+```css
+html {
+  /* 62.5% of 16px = 10px */
+  font-size: 62.5%;
+}
+
+body {
+  /* 1.5 x 10px = 15px */
+  font-size: 1.5rem;
+}
+```
+
+When it comes to sizing the headings, we can use [type_scale](https://type-scale.com/) pick the ideal sizes and implement it in our code.
+
+Ex:
+
+```css
+/* change all heading font at a times */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+h1 {
+  font-size: 4.209rem;
+}
+
+h2 {
+  font-size: 3.157rem;
+}
+```
+
+---
+
+##### vertical spacing
+
+Vertical spacing:
+
+- `margin`
+
+  **Law of Proximity**: Objects that are closer are perceived to be related
+
+  In other words, set the heading top margin `3rem` farther than bottom one
+
+```css
+h1 {
+  margin: 3rem 0 1rem; /* top = 3, bottom = 1 */
+}
+```
+
+- `line-height`
+
+```css
+body {
+  font-size: 1rem;
+
+  /* fixed line-height */
+  line-height: 1.5rem;
+
+  /* line-height = 1.5 x font-size (recommanded) */
+  line-height: 1.5;
+}
+```
+
+---
+
+##### Horizontal spacing
+
+Horizontal spacing:
+
+- `letter-spacing`
+
+- `word-spacing`
+
+```css
+body {
+  /* H e l l o   w o r l d */
+  letter-spacing: 1px;
+  /* Hello      world */
+  word-spacing: 5px;
+}
+```
+
+- `width`
+
+**Ideal line length**: between 50 - 70 characters per line
+
+```css
+p {
+  /* ch means characters */
+  width: 50ch;
+}
+```
+
+---
+
+##### Formatting text
+
+- `text-align`
+
+```css
+text-align: left;
+text-align: center;
+```
+
+- `text-indent`
+
+```css
+text-indent: 1rem;
+```
+
+- `text-decoration`
+
+```css
+text-decoration: none;
+text-decoration: underline;
+text-decoration: line-through;
+```
+
+- `text-transform`
+
+```css
+text-transform: lowercase;
+text-transform: uppercase;
+/* Use in heading */
+text-transform: capitalize;
+```
+
+- `white-space`
+  Use `white-space` mainly to truncate a long text into one line
+
+```css
+/* To truncate a paragraph */
+width: 50ch;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+```
+
+- `column-*`
+
+```css
+/* split the text into 2 columns */
+column-count: 2;
+/* set the distance of the gap between */
+column-gap: 2rem;
+/* add a dotted line between each column */
+column-rule: 3px dotted #999;
+```
+
+- `direction`
+  By default it is set to `ltr`
+
+```css
+/* text goes from right to left */
+direction: rtl;
 ```
 
 ---
