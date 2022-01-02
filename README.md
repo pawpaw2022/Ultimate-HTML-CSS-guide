@@ -3388,9 +3388,16 @@ You should use `SVG` format for icons, logos, background etc.
 
 You can implement beautiful Font Icons at [Font Awesome](https://fontawesome.com/)
 
-To implement an icon:
+To implement an icon: (make sure to include `script` in `head`)
 
 ```html
+<head>
+  <script
+    src="https://kit.fontawesome.com/c2f2580cbe.js"
+    crossorigin="anonymous"
+  ></script>
+</head>
+
 <body>
   <!-- Wrapped with a `span` class to modify the icon -->
   <span class="icon">
