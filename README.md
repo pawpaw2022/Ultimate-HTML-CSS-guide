@@ -37,6 +37,7 @@
     - [CSS Cheat Sheet](#css-cheat-sheet)
   - [Development tools](#development-tools)
 - [Intermediate](#intermediate)
+
   - [Layout](#layout)
     - [The box model](#the-box-model)
     - [Sizing elements](#sizing-elements)
@@ -49,11 +50,59 @@
     - [Hiding elements](#hiding-elements)
     - [Media queries](#media-queries)
   - [Typography](#typography)
+    - [Styling Fonts](#styling-fonts)
+    - [Embedding Web Fonts](#embedding-web-fonts)
+    - [Flash of Unstyled Text](#flash-of-unstyled-text)
+    - [Font Service](#font-service)
+    - [System Font Stack](#system-font-stack)
+    - [Sizing Fonts](#sizing-fonts)
+    - [Vertical Spacing](#vertical-spacing)
+    - [Horizontal Spacing](#horizontal-spacing)
+    - [Formatting Text](#formatting-text)
   - [Images](#images)
+    - [Image Types and Formats](#image-types-and-formats)
+    - [Content Images](#content-images)
+    - [Background Images](#background-images)
+    - [CSS Sprites](#css-sprites)
+    - [Data URLs](#data-urls)
+    - [Clipping](#clipping)
+    - [Filters](#filters)
+    - [Supporting High-density Screens](#supporting-high-density-screens)
+    - [Resolution Switching](#resolution-switching)
+    - [Using Modern Image Formats](#using-modern-images-formats)
+    - [Art Direction](#art-direction)
+    - [Scalable Vector Graphics](#scalable-vector-graphics)
+    - [Font Icons](#font-icons)
   - [Forms](#forms)
+
+    - [Creating a Basic Form](#creating-a-basic-form)
+    - [Styling Forms](#styling-forms)
+    - [CSS Frameworks](#css-frameworks)
+    - [Text Fields](#text-fields)
+    - [Data Lists](#data-lists)
+    - [Drop-down Lists](#drop-down-lists)
+    - [Check Boxes](#check-boxes)
+    - [Radio Buttons](#radio-buttons)
+    - [Sliders](#sliders)
+    - [File Inputs](#file-inputs)
+    - [Grouping Related Fields](#grouping-related-fields)
+    - [Hidden Fields](#hidden-fields)
+    - [Data Validation](#data-validation)
+    - [Submitting the Form](#submitting-the-form)
+
   - [Transformations, Transitions, and Animations](#transformations-transitions-and-animations)
+
+    - [Transformations](#transformations)
+    - [3D Transformations](#3d-transformations)
+    - [Transitions](#transitions)
+    - [Animations](#animations)
+    - [Reusable Animations](#reusable-animations)
+
   - [Writing Clean, Maintainable CSS](#writing-clean-maintainable-css)
-  - [Layout](#Layout)
+    - [CSS Best Practices](#css-best-practices)
+    - [Variables](#variables)
+    - [Object-oriented CSS](#grid)
+    - [BEM](#bem)
 
 ---
 
@@ -3083,11 +3132,298 @@ direction: rtl;
 
 ---
 
+#### Images
+
+---
+
+##### Image Types and Formats
+
+Images fall into two categories: raster and vector. Raster images are made up of pixels.
+Vector graphics are defined by a set of mathematical vectors (eg lines and curves).
+
+- **Raster images**
+
+  - Come from cameras/scanners
+  - Formats: JPG, PNG, GIF, etc
+  - More pixels = larger file size
+  - Look blurry if scaled
+
+- **Vector images**
+  - Created in software (illustrator)
+  - Format: SVG
+  - Scalable Vector Graphics
+  - Look sharp at any size
+
+##### Content Images
+
+We use the `img` element to display content images. Content images can represent
+meaningful content or be used for decorative purposes. If used for decoration, we
+should set the `alt` attribute to an empty string; otherwise, screen readers will read out
+the name of the file which may be distracting to the user.
+
+Ex:
+
+```html
+<body>
+  <img class="meal" src="/images/meal.jpg" alt="A bowl of salmon and curry" />
+</body>
+```
+
+---
+
+##### Background Images
+
+- To set up a background image, we should set it inside `CSS` file using `url(...)`
+
+- By default, background image will repeat itself, you can set `background-repeat` to `no-repeat`, `repeat-x` (only repeat on horizontal axis), or `repeat-y`
+
+- To strech the image to fit the whole screen, set `background-size` to `100% 100%`, but also need to set `height` to `100wh`
+
+- You can also strech the image while keeping the aspect ratio by setting `background-size` to `cover`
+
+- When you scroll the page, to let background image stay still, set `background-attachment: fixed;`
+
+```css
+body {
+  body {
+    /* Provide image url */
+    background: url(/images/bg-paper@2x.jpg);
+
+    /* no-repeat for the background img */
+    background-repeat: no-repeat;
+
+    /* let image fit entire screen */
+    background-size: cover;
+
+    /* Push the image 100px left, 100px down */
+    background-position: 100px 100px;
+
+    /* image stay fixed while scolling */
+    background-attachment: fixed;
+  }
+}
+```
+
+---
+
+##### CSS Sprites
+
+[Flat Icon](https://www.flaticon.com/) helps you find tons of beautiful icons for your project.
+
+Sometimes, loading multiple images are expensive since it contains more HTTP requests. We can combine all images into a sprite sheet and load at once.
+
+[CSS Sprite Generator](https://css.spritegen.com/)
+
+However, this is sometimes not useful because:
+
+- File size can get too large
+- Sprites are not flexible
+
+---
+
+##### Data URLs
+
+Formally called: Data URIs
+
+Another optimization technique to reduce HTTP requests.
+
+[Data URI Generator](https://www.cssportal.com/image-to-data/)
+
+Problems:
+
+- Size of embedded code > size of the resource
+- Increase complexity
+- Slow on mobile
+
+---
+
+##### Clipping
+
+By using image clipping, we can make the image fit in any shape.
+
+[CSS Clipping Generator](https://bennettfeely.com/clippy/)
+
+Copy the `clip-path` under the image to your css
+Ex:
+
+```css
+.meal {
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+```
+
+---
+
+##### Filters
+
+[CSS Filter](https://developer.mozilla.org/en-US/docs/Web/CSS/filter)
+
+To apply a filter on an image:
+
+```css
+.meal {
+  filter: grayscale(70%) blur(3px);
+}
+
+/* When cursor hover over it, remove the filter */
+.meal:hover {
+  filter: none;
+}
+```
+
+---
+
+##### Supporting High-density Screens
+
+High-density screens like Apple’s Retina displays contain more pixels than standard- density screens. The pixels on these screens are smaller than the pixels on standard- density screens. So when displaying an image, the screen uses a scale factor (1.5 or greater) to scale up the image. As a result, raster images may look a bit blurry when shown on these screens.
+
+To solve this problem, we can supply 2x or 3x versions of an image using the srcset attribute of the img element.
+
+1. Go to Photoshop, insert the original full-size image,
+2. `Image` menu -> `Image Size` -> resize to `1200px x 1200px` -> save it as `@3x`, `Quality` set to `7`.
+
+3. Keep doing 2 more time with `800px x 800px` as `@2x` and `400px x 400px` as `@1x`
+
+4. In `<img>`, add `srcset` attribute
+
+```html
+<body>
+  <img
+    src="/images/meal.jpg"
+    alt="A bowl with salmon and curry"
+    class="meal"
+    srcset="images/meal.jpg 1x, images/meal@2x.jpg 2x, images/meal@3x.jpg 3x"
+  />
+</body>
+```
+
+---
+
+##### Resolution Switching
+
+For flexible-sized images, we need to supply the image in various sizes for different devices like mobiles, tablets and desktop computers.
+If we supply a single image, the browser on each device has to resize the image which can be a costly operation. The larger the image, the more memory is needed and the more costly the resizing operation will be. Plus, the extra bytes used to download the image will be wasted. This is the `resolution switching` problem.
+To address this, we should give the `img` element a few image sources and the size of the image for various viewports. The browser will take the screen resolution and pixel density into account and download the image that best fits the final size.
+
+[Responsive Image Breakpoints Generator](https://responsivebreakpoints.com/)
+
+```html
+<body>
+  <!-- different size of image on different devices -->
+  <img
+    src="/images/meal.jpg"
+    alt="A bowl with salmon and curry"
+    class="meal"
+    srcset="
+      images/meal.jpg     400w,
+      images/meal@2x.jpg  800w,
+      images/meal@3x.jpg 1200w
+    "
+    sizes="
+      (max-width: 500px) 100vw,
+      (max-width: 700px) 50vw,
+        33vw    
+      "
+  />
+</body>
+```
+
+---
+
+##### Using Modern Image Formats
+
+Modern Image Format, i.e. `webp` are more compressed than other formats like `JPEG`, but their qualities almost the same.
+
+To convert, you can use [Cloud Converter](https://cloudconvert.com/jpg-to-webp)
+
+However, some browsers don't support `webp` format,
+To support modern image formats, we can use the `picture` element with multiple `source`s. The `picture` element should always contain an img element otherwise the image is not shown.
+
+```html
+<body>
+  <picture>
+    <source type="image/webp" srcset="images/meal.webp" />
+    <source type="image/jpeg" srcset="images/meal.jpg" />
+    <img src="/images/meal.jpg" alt="A bowl of salmon and curry" />
+  </picture>
+</body>
+```
+
+---
+
+##### Art Direction
+
+Sometimes we need to show a zoomed in or a cropped version of an image for certain viewport sizes. This is the art direction problem. To handle this, we use the picture element with multiple sources. Each source should contain a media condition and a srcset. The browser will pick the first source whose media condition matches.
+
+Ex:
+
+```html
+<body>
+  <picture>
+    <!-- Display cropped image on mobile device -->
+    <source media="(max-width: 500px)" srcset="/images/meal-cropped.jpg" />
+    <!-- Display full image on larger screen -->
+    <source media="(min-width: 501px)" srcset="/images/meal.jpg" />
+    <!-- Backup image -->
+    <img src="/images/meal.jpg" alt="A bowl of salmon and curry" />
+  </picture>
+</body>
+```
+
+---
+
+##### Scalable Vector Graphics
+
+Scalable Vector Graphics, a.k.a.`SVG`, looks sharp at any size.
+
+This is very powerful because it is not made by pixels, but by math.
+
+You should use `SVG` format for icons, logos, background etc.
+
+[SVG Background Source](https://www.svgbackgrounds.com/)
+
+---
+
+##### Font Icons
+
+You can implement beautiful Font Icons at [Font Awesome](https://fontawesome.com/)
+
+To implement an icon:
+
+```html
+<body>
+  <!-- Wrapped with a `span` class to modify the icon -->
+  <span class="icon">
+    <!-- `fa-2x` means double the size -->
+    <i class="fas fa-poop fa-2x"></i>
+  </span>
+</body>
+```
+
+To style an icon:
+
+```css
+.icon {
+  color: brown;
+  font-size: 2rem;
+}
+```
+
+---
+
 #### Transformations, Transitions, and Animations
 
 ---
 
+##### XX
+
+---
+
 #### Writing Clean, Maintainable CSS
+
+---
+
+##### YY
 
 ---
 
