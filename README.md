@@ -3418,11 +3418,499 @@ To style an icon:
 
 ---
 
+#### Forms
+
+---
+
+##### Creating a Basic Form
+
+To create a simple form, we use `label`, `input` and `button`
+
+`label` elements make our forms more accessible. When the user clicks on a label, the
+associated input field gets focus.
+
+Ex:
+
+```html
+<body>
+  <form>
+    <!-- Separate by lines -->
+    <div>
+      <!-- input `id` should match label `for` -->
+      <label for="name">Name</label>
+      <input id="name" type="text" />
+    </div>
+    <div>
+      <label for="email">Email</label>
+      <!-- set `type` to email for validation -->
+      <input id="email" type="email" />
+    </div>
+
+    <button type="submit">Register</button>
+    <button type="reset">Clear</button>
+  </form>
+</body>
+```
+
+---
+
+##### Styling Forms
+
+To style a form, there are various of properties for styling.
+
+Ex:
+
+```css
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+
+  line-height: 1.5;
+  padding: 1rem;
+}
+
+label {
+  display: block;
+}
+
+input[type="text"],
+input[type="email"] {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0.5rem 0.7rem;
+  /* color transform when switching boxes */
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+/* when input box is selected */
+input[type="text"]:focus,
+input[type="email"]:focus {
+  border-color: #7db0fb;
+  /* get rid of system default outline */
+  outline: 0;
+  box-shadow: 0 0 0 4px rgba(24, 117, 255, 0.25);
+}
+
+button {
+  background-color: #0d6efd;
+  color: white;
+  border: 0;
+  padding: 0.5rem 0.7rem;
+  border-radius: 5px;
+  outline: 0;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+```
+
+---
+
+##### CSS Frameworks
+
+Writing CSS code is time-consuming, that is why we need CSS Frameworks
+
+Common CSS Frameworks are:
+
+- [Bootstrap](https://getbootstrap.com/) (More Features, but larger)
+- Foundation
+- Semantic UI
+- UI Kit
+- Materialize
+- [Milligram](https://milligram.io/) (Less Features, but smaller)
+
+To use a Framework, first to link it with CDN (Content Delivery Network)
+
+```html
+<head>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+    crossorigin="anonymous"
+  />
+</head>
+```
+
+Next, to style some elements, all we need to do is to give a `class` to each element.
+
+```html
+<body>
+  <!-- Make 50% of the screen width -->
+  <form class="w-50">
+    <!-- "mb-3" means margin-bottom: 3rem -->
+    <div class="mb-3">
+      <label class="form-label" for="name">Name</label>
+      <input class="form-control" id="name" type="text" />
+    </div>
+    <div class="mb-3">
+      <label class="form-label" for="email">Email</label>
+      <input class="form-control" id="email" type="email" />
+    </div>
+
+    <button class="btn btn-primary" type="submit">Register</button>
+    <button class="btn btn-secondary" type="reset">Clear</button>
+  </form>
+</body>
+```
+
+However, loading a Bootstrap CSS file sometimes is slow, hence we need some easy, simple CSS framework, i.e. Milligram
+
+To use Milligram is also easier than Bootstrap, because all you need to done is to change the CDN link. Your form will be automatically styled.
+
+```html
+<head>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css"
+  />
+</head>
+```
+
+---
+
+##### Text Fields
+
+Text Field can contain multiple types of input
+
+For example:
+
+```html
+<body>
+  <form>
+    <!-- Text field -->
+    <input type="text" />
+
+    <!-- Number field -->
+    <input type="number" />
+
+    <!-- password field -->
+    <input type="password" />
+
+    <!-- date field -->
+    <input type="date" />
+
+    <!-- email field -->
+    <input type="email" />
+  </form>
+</body>
+```
+
+More [HTML Input Element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)
+
+To type multiple lines of text (a block of textfield):
+
+```html
+<body>
+  <form>
+    <textarea cols="30" rows="10"></textarea>
+  </form>
+</body>
+```
+
+**Common attributes in text fields**
+
+`value` : The initial value of the control.
+`placeholder`: Text that appears in the form control when it has no value set
+`readonly`: Boolean. The value is not editable
+`disabled`: Whether the form control is disabled _(Value won't be submitted)_
+`maxlength`: Maximum length (number of characters) of `value`
+`autofocus`: Automatically focus the form control when the page is loaded
+
+```html
+<input type="text" value="Hello" placeholder="Name" readonly />
+
+<!-- default value should be added in the tag -->
+<textarea>Comments...</textarea>
+```
+
+More [HTML Input Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)
+
+---
+
+##### Data Lists
+
+If you want to show some suggestions when the user type in something, you can use `datalist`
+
+Few things to note:
+
+1. The `id` in `datalist` should be same as `list` in `input`
+2. Set `autocomplete` to `off` to not show the history typing
+3. Set `data-value` to send to the server. _(if using JavaScript)_
+
+```html
+<body>
+  <form>
+    <input type="text" list="countries" autocomplete="off" />
+    <datalist id="countries">
+      <option data-value="1">Australia</option>
+      <option>Canada</option>
+      <option>India</option>
+      <option>United States</option>
+    </datalist>
+  </form>
+</body>
+```
+
+However, if you want to style your data lists, you have to use JavaScript. We will study this later.
+
+---
+
+##### Drop-down Lists
+
+To create a drop-down list, we use `select` and `option`
+
+```html
+<body>
+  <form>
+    <select>
+      <!-- 1st option is the default selection  -->
+      <option value="">Select a Course...</option>
+      <option value="1">HTML</option>
+      <option value="2">CSS</option>
+      <option value="3">JavaScript</option>
+    </select>
+  </form>
+</body>
+```
+
+If you want to select multiple `option`, add `multiple` inside `select`
+
+```html
+<select multiple>
+  <option value="1">HTML</option>
+  <option value="2">CSS</option>
+  <option value="3">JavaScript</option>
+</select>
+```
+
+To categorize the options, use `optgroup` with `label`
+
+```html
+<body>
+  <form>
+    <select>
+      <optgroup label="Front-end Courses">
+        <option value="1">HTML</option>
+        <option value="2">CSS</option>
+        <option value="3">JavaScript</option>
+      </optgroup>
+      <optgroup label="Back-end Courses">
+        <option value="1">Node.js</option>
+        <option value="2">Django</option>
+        <option value="3">Database</option>
+      </optgroup>
+    </select>
+  </form>
+</body>
+```
+
+---
+
+##### Check Boxes
+
+To create a check box:
+
+Set `class` to `label-inline` to make label in-line.
+
+```html
+<form>
+  <div>
+    <input type="checkbox" id="front-end" />
+    <label class="label-inline" for="front-end">Front-end</label>
+  </div>
+
+  <div>
+    <input type="checkbox" id="back-end" />
+    <label class="label-inline" for="back-end">Back-end</label>
+  </div>
+</form>
+```
+
+---
+
+##### Radio Buttons
+
+To create a radio buttons:
+
+```html
+<form>
+  <div>
+    <input type="radio" name="membership" id="silver" />
+    <label for="silver" class="label-inline">Silver</label>
+  </div>
+
+  <div>
+    <input type="radio" name="membership" id="platinum" />
+    <label for="platinum" class="label-inline">Platinum</label>
+  </div>
+</form>
+```
+
+Note: you can also use `checked` and `disabled` on the button:
+
+```html
+<div>
+  <!-- This button is pre-selected and disabled -->
+  <input type="radio" name="membership" id="silver" checked disabled />
+  <label for="silver" class="label-inline">Silver</label>
+</div>
+```
+
+---
+
+##### Sliders
+
+To create a slider bar: (like a volume bar)
+
+```html
+<form>
+  <!-- range from 0 to 100, default set at 90 -->
+  <input type="range" min="0" max="100" value="90" />
+</form>
+```
+
+---
+
+##### File Inputs
+
+To allow user upload a file:
+
+```html
+<input type="file" />
+```
+
+Attributes:
+
+`multiple` : allow multiple files
+`accept`: specify the file type (separate by `,`)
+
+Ex:
+
+```html
+<form>
+  <!-- Allow multiple files, only for jpg and png -->
+  <input type="file" multiple accept=".jpg, .png" />
+
+  <!-- Allow any image file -->
+  <input type="file" accept="image/*" />
+</form>
+```
+
+---
+
+##### Grouping Related Fields
+
+As our form grows larger and larger, we need to group them logically using `fieldset` and `legend`
+
+```html
+<form>
+  <fieldset>
+    <legend>Billing Address</legend>
+    <input type="text" />
+    <input type="text" />
+    <input type="text" />
+
+    <legend>Payment</legend>
+    <input type="text" />
+    <input type="text" />
+    <input type="text" />
+  </fieldset>
+</form>
+```
+
+Alternatively, you can replace with `section` and `h2`
+
+---
+
+##### Hidden Fields
+
+Hidden fields are not visible to the user and are often used to specify the ID of the content being edited.
+
+Don’t use them to store sensitive information because they can easily be accessed via the source code of the page.
+
+```html
+<form>
+  <input type="hidden" name="course-id" value="1234" />
+</form>
+```
+
+---
+
+##### Data Validation
+
+Data Validation
+
+- Required fields
+- Emails
+- Numbers
+- Dates
+
+To add data validation, simply add `required` behind `input` field
+
+Ex:
+
+```html
+<form>
+  <input type="text" required />
+  <button type="submit">submit</button>
+</form>
+```
+
+Additionally, you can set `min-length` or `max-length` to set the length:
+
+Ex:
+
+```html
+<form>
+  <input type="text" required minlength="3" maxlength="10" />
+
+  <!-- min & max to control number field -->
+  <input type="number" required min="3" max="10" />
+  <button type="submit">submit</button>
+</form>
+```
+
+---
+
+##### Submitting the Form
+
+To submit a form, we use `action` attribute and set `method` to `POST`
+
+For now, we can use [Formspree](https://formspree.io/) to help us collect the form.
+
+```html
+<form action="https://formspree.io/f/xwkypnbv" method="POST">
+  <input type="text" placeholder="Name" name="name" />
+  <input type="text" placeholder="Email" name="email" />
+  <button type="submit">submit</button>
+</form>
+```
+
+---
+
 #### Transformations, Transitions, and Animations
 
 ---
 
-##### XX
+##### Transformations
+
+---
+
+##### 3D Transformations
+
+---
+
+##### Transitions
+
+---
+
+##### Animations
+
+---
+
+##### Reusable Animations
 
 ---
 
@@ -3430,7 +3918,19 @@ To style an icon:
 
 ---
 
-##### YY
+##### CSS Best Practices
+
+---
+
+##### Variables
+
+---
+
+##### Object-oriented CSS
+
+---
+
+##### BEM
 
 ---
 
