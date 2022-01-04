@@ -101,7 +101,7 @@
   - [Writing Clean, Maintainable CSS](#writing-clean-maintainable-css)
     - [CSS Best Practices](#css-best-practices)
     - [Variables](#variables)
-    - [Object-oriented CSS](#grid)
+    - [Object-oriented CSS](#object-oriented-css)
     - [BEM](#bem)
 
 ---
@@ -4071,17 +4071,127 @@ Addtionally, we can use [animate.style](https://animate.style/) to generate tons
 
 ##### CSS Best Practices
 
+CSS Best Practices:
+
+1. **Follow a naming convention**
+   Follow a naming convention for naming IDs and classes. The most common naming conventions are: - PascalCase `.NavBar` - CamelCase `.navBar` - Kabob-case `.nav-bar` - Other `.nav_bar`
+
+2. **Create logical sections in your stylesheet**
+   Adding comments or separate stylesheet to make stylesheet look reasonable and clean
+
+3. **Avoid over-specific selectors**
+   Avoid over-specific selectors. Limit nesting to **two** or **maximum three** selectors.
+
+4. **Avoid `!important`**
+   Avoid the `!important` keyword as much as possible.
+   Instead, try to name different unique `class`
+
+5. **Sort CSS properties**
+   Sort CSS properties. This makes it easier to read your code.
+   To sort all properties:
+
+   1. Select all preperties
+   2. Open command palette i.e. `cmd` + `shift` + `p`
+   3. Search `sort`
+
+6. **Take advantage of style inheritance**
+   Take advantage of style inheritance and reduce duplication in your styles.
+
+7. **Extract repetitive patterns**
+   This is part of [Object-oriented CSS](#object-oriented-css)
+
+8. **Avoid repetitive values** _(Keep it DRY)_
+   **DRY**: Don't Repeat Yourself
+   Use CSS _variables_, also called custom properties, to keep your code DRY.
+
 ---
 
 ##### Variables
+
+We often declare variables using the `:root` selector that targets the `html` element.
+We can then access these variables using the `var()` function.
+
+```css
+:root {
+  --color-primary: #ffdd36;
+  --border-size: 2px;
+  --border-radius: 10px;
+}
+
+.one {
+  background: var(--color-primary);
+}
+
+.two {
+  background: var(--color-primary);
+}
+```
 
 ---
 
 ##### Object-oriented CSS
 
+_Object-oriented CSS_ is a set of principles for creating reusable components.
+
+Two principles in _Object-oriented CSS_ :
+
+1. Separate container and content.
+2. Separate structure and skin.
+
+Ex: say we have 2 buttons
+
+```html
+<body>
+  <div class="content"><button class="btn btn-primary">Sign in</button></div>
+  <aside class="aside"><button class="btn btn-secondary">Quit</button></aside>
+</body>
+```
+
+Following Object-oriented CSS, we should style the button like this:
+
+```css
+/* Separate container and content. */
+.btn {
+  width: 150px;
+  border: 0;
+  border-radius: 50px;
+  padding: 1rem 2rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+/* Separate structure and skin. */
+.btn-primary {
+  background-color: gold;
+}
+
+.btn-secondary {
+  background-color: dodgerblue;
+}
+```
+
 ---
 
 ##### BEM
+
+_BEM (Block Element Modifier)_ is a popular naming convention for CSS classes.
+
+Here’s an example of what a CSS developer writing in the BEM style might write:
+
+```html
+<body>
+  <div class="card card--popular">
+    <header class="card__header">
+      <span class="card__price"> </span>
+    </header>
+
+    <div class="card__body">
+      <!-- we need use `btn` somewhere else -->
+      <button class="btn"></button>
+    </div>
+  </div>
+</body>
+```
 
 ---
 
