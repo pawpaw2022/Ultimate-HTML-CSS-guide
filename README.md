@@ -3896,21 +3896,172 @@ For now, we can use [Formspree](https://formspree.io/) to help us collect the fo
 
 ##### Transformations
 
+Transformations includes:
+
+- `rotate()`
+- `scale()`
+- `skew()`
+- `translate()`
+
+Ex:
+
+```css
+.box:hover {
+  /* clockwise 15deg */
+  transform: rotate(15deg);
+
+  /* double the size */
+  transform: scale(2);
+
+  /* tail to left 15deg */
+  transform: skew(15deg);
+
+  /* move horizontal 10px, vertically 15px */
+  transform: translate(10px, 15px);
+
+  /* apply multiple transforms */
+  /* order matters */
+  transform: rotate(45deg) translateX(50px);
+}
+```
+
 ---
 
 ##### 3D Transformations
+
+3D Transformations allow elements move on the third axis
+
+Note: When `rotate`, the pivot is set to the center by default
+
+```css
+.box:hover {
+  /* 200px distance between object and the screen */
+  /* move 50px away along z-axis, so it looks smaller. */
+  transform: perspective(200px) translateZ(-50px);
+
+  /* rotate along vertical axis */
+  transform: perspective(200px) rotateY(45deg);
+
+  /* set rotate pivot to (0, 0) */
+  transform-origin: 0 0;
+}
+```
+
+When try to `rotate` multiple elements, we need to wrap them with a new container and set its `perspective` property to a certain number.
+
+```css
+.container {
+  perspective: 200px;
+}
+
+.container:hover .box {
+  transform: rotateY(45deg);
+}
+```
 
 ---
 
 ##### Transitions
 
+By using Transition, our transforms will become smoother.
+
+```css
+.box {
+  /* `transform` happens in 0.5s, linear rate, delay 1s */
+  transition: transform 0.5s linear 1s, background 0.5s;
+}
+```
+
+`linear` means our transition will go at a linear rate, alternatively, you can also set to
+
+- `ease-in` go quick first, then slow
+- `ease-out` go slow first, then fast
+- `cubic-bezier()` custom [cubic-bezier](https://cubic-bezier.com/#.17,.67,.83,.67) curve
+
 ---
 
 ##### Animations
 
+Animations allow us to create more complicated transforms.
+
+To start off with, we need an animation function, `@keyframes`
+
+Ex:
+
+```css
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+
+  25% {
+    transform: scale(1.3);
+  }
+
+  50% {
+    transform: rotate(45deg);
+    background: tomato;
+  }
+
+  100% {
+    transform: rotate(0);
+  }
+}
+```
+
+Next, in the element section, we apply the animation:
+
+```css
+.box {
+  height: 200px;
+  width: 200px;
+  background-color: gold;
+
+  /* Apply animation */
+  animation-name: pop;
+  animation-duration: 4s;
+  animation-delay: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-out;
+  animation-direction: alternate;
+
+  /* apply them all at one */
+  animation: pop 4s ease-out;
+}
+```
+
+[CSS Animation](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations)
+
 ---
 
 ##### Reusable Animations
+
+Sometimes we need to reuse animations without redundent code.
+
+To handle this, we can use `class` to specify the animation configs, and apply the `class` to the element.
+
+Ex:
+
+```css
+.animation-pop {
+  animation-name: pop;
+  animation-duration: 4s;
+  animation-delay: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-out;
+  animation-direction: alternate;
+}
+```
+
+Next, add `animation-pop` to your class:
+
+```html
+<div class="animation-pop"></div>
+```
+
+Addtionally, we can use [animate.style](https://animate.style/) to generate tons of reusable animations.
+
+==Note: read the instruction before implementation==
 
 ---
 
